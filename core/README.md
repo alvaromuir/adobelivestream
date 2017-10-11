@@ -39,7 +39,9 @@ as well as endpoint calls. This enables local authentication strategies and conn
 ## Installation
 
 The project is built via Maven; Tests are included but have been disabled for compiling due to the nature of credential 
-and endpoint settings.
+and endpoint settings. Packages can be built simply as:
+
+```$ mvn clean package -Dmaven.test.skip=true```
 
 
 ## Tests

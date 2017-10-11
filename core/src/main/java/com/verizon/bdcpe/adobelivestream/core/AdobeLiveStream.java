@@ -50,7 +50,7 @@ public class AdobeLiveStream {
         final HelpFormatter formatter = new HelpFormatter();
         final String syntax = "adobelivestream-core <parameters>";
         final String usageHeader = "Parameters";
-        final String usageFooter = "http://...";
+        final String usageFooter = "README - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/core";
         out.println("\nadobelivestream.core retrieves real-time event data from Adobe Analytics.");
 //        printUsage(options);
         formatter.printHelp(syntax, usageHeader, options, usageFooter);

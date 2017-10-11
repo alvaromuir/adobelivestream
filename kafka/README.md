@@ -3,7 +3,7 @@
 
 adobelivestream.collector is kafka-based pubsub middleware for Adobe's
 [Analytics Live Streaming](https://marketing.adobe.com/developer/documentation/analytics-live-stream/overview-1)
-built on top of the [adobelivestream-collector API](https://onestash.verizon.com/users/v603497/repos/adobelivestreamticket), with the option to run as command-line application.
+built on top of the [adobelivestream-collector API](https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector), with the option to run as command-line application.
 As with the collector, required parameters are passed in via parameters with additional functionality added to filter the returned json as well as limit the number of results.
 
 ## Quick start Example
@@ -41,7 +41,9 @@ Please see adobelivestream.core's README for details on required, excluded and f
 ## Installation
 
 The project is built via Maven; Tests are included but have been disabled for compiling due to the nature of credential 
-and endpoint settings.
+and endpoint settings. Packages can be built simply as:
+                                            
+```$ mvn clean package -Dmaven.test.skip=true```
 
 ## Tests
 
