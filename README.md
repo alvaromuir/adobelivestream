@@ -1,7 +1,7 @@
 # adobelivestream
 ## v1.0
 
-adobelivestream Modular refactor of [adobe-live-streamer](https://onestash.verizon.com/users/v603497/repos/adobe-live-streamer/browse)
+adobelivestream Modular refactor of [adobe-live-streamer](https://onestash.verizon.com/users/v603497/repos/adobe-live-streamer)
 
 Built with the following components:
 
