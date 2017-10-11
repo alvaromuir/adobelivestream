@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite 
+errors="0" failures="0" hostname="WNJ0034ALBMKAYL" name="com.verizon.bdcpe.adobelivestream.collector.CollectorSpec" tests="2" time="0.024" timestamp="2017-10-11T08:55:45">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment">
+    </property>
+    <property 
+    name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib">
+</property>
+    <property name="java.vm.version" value="25.144-b01"> </property>
+    <property name="gopherProxySet" value="false"> </property>
+    <property name="java.vm.vendor" value="Oracle Corporation"> </property>
+    <property name="java.vendor.url" value="http://java.oracle.com/">
+    </property>
+    <property name="path.separator" value=":"> </property>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM">
+    </property>
+    <property name="file.encoding.pkg" value="sun.io"> </property>
+    <property name="user.country" value="US"> </property>
+    <property name="sun.java.launcher" value="SUN_STANDARD"> </property>
+    <property name="sun.os.patch.level" value="unknown"> </property>
+    <property 
+    name="java.vm.specification.name" value="Java Virtual Machine Specification">
+</property>
+    <property 
+    name="user.dir" value="/Users/v603497/Projects/adobelivestream/collector">
+</property>
+    <property name="java.runtime.version" value="1.8.0_144-b01"> </property>
+    <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment">
+    </property>
+    <property 
+    name="basedir" value="/Users/v603497/Projects/adobelivestream/collector">
+</property>
+    <property 
+    name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/endorsed">
+</property>
+    <property name="os.arch" value="x86_64"> </property>
+    <property 
+    name="java.io.tmpdir" value="/var/folders/yx/sv99x4nj52xcxkn53nkx0gtsvq7d57/T/">
+</property>
+    <property name="line.separator" value=" "> </property>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation">
+    </property>
+    <property name="os.name" value="Mac OS X"> </property>
+    <property name="sun.jnu.encoding" value="UTF-8"> </property>
+    <property 
+    name="java.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/server:/Developer/NVIDIA/CUDA-8.0/lib:/Users/v603497/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.">
+</property>
+    <property 
+    name="java.security.krb5.conf" value="/Users/v603497/kerberos/krb5.conf">
+</property>
+    <property 
+    name="java.specification.name" value="Java Platform API Specification">
+</property>
+    <property name="java.class.version" value="52.0"> </property>
+    <property 
+    name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers">
+</property>
+    <property name="os.version" value="10.12.6"> </property>
+    <property 
+    name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16|127.0.0.1|localhost|*.localhost|localunixsocket.local|*.localunixsocket.local">
+</property>
+    <property name="user.home" value="/Users/v603497"> </property>
+    <property name="user.timezone" value=""> </property>
+    <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob">
+    </property>
+    <property name="java.specification.version" value="1.8"> </property>
+    <property name="file.encoding" value="UTF-8"> </property>
+    <property name="user.name" value="v603497"> </property>
+    <property 
+    name="java.class.path" value="/Users/v603497/Projects/adobelivestream/collector/target/test-classes:/Users/v603497/Projects/adobelivestream/collector/target/classes:/Users/v603497/.m2/repository/org/scala-lang/scala-library/2.11.11/scala-library-2.11.11.jar:/Users/v603497/.m2/repository/com/verizon/bdcpe/adobelivestream/core/1.2/core-1.2.jar:/Users/v603497/.m2/repository/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar:/Users/v603497/.m2/repository/ch/qos/logback/logback-classic/1.2.3/logback-classic-1.2.3.jar:/Users/v603497/.m2/repository/ch/qos/logback/logback-core/1.2.3/logback-core-1.2.3.jar:/Users/v603497/.m2/repository/commons-cli/commons-cli/1.4/commons-cli-1.4.jar:/Users/v603497/.m2/repository/org/apache/commons/commons-lang3/3.6/commons-lang3-3.6.jar:/Users/v603497/.m2/repository/org/apache/httpcomponents/httpclient/4.5.3/httpclient-4.5.3.jar:/Users/v603497/.m2/repository/org/apache/httpcomponents/httpcore/4.4.6/httpcore-4.4.6.jar:/Users/v603497/.m2/repository/commons-logging/commons-logging/1.2/commons-logging-1.2.jar:/Users/v603497/.m2/repository/commons-codec/commons-codec/1.9/commons-codec-1.9.jar:/Users/v603497/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.8.9/jackson-databind-2.8.9.jar:/Users/v603497/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.8.0/jackson-annotations-2.8.0.jar:/Users/v603497/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.8.9/jackson-core-2.8.9.jar:/Users/v603497/.m2/repository/org/json4s/json4s-core_2.11/3.5.3/json4s-core_2.11-3.5.3.jar:/Users/v603497/.m2/repository/org/json4s/json4s-ast_2.11/3.5.3/json4s-ast_2.11-3.5.3.jar:/Users/v603497/.m2/repository/org/json4s/json4s-scalap_2.11/3.5.3/json4s-scalap_2.11-3.5.3.jar:/Users/v603497/.m2/repository/com/thoughtworks/paranamer/paranamer/2.8/paranamer-2.8.jar:/Users/v603497/.m2/repository/org/scala-lang/modules/scala-xml_2.11/1.0.6/scala-xml_2.11-1.0.6.jar:/Users/v603497/.m2/repository/org/json4s/json4s-jackson_2.11/3.5.3/json4s-jackson_2.11-3.5.3.jar:/Users/v603497/.m2/repository/com/typesafe/akka/akka-actor_2.11/2.5.6/akka-actor_2.11-2.5.6.jar:/Users/v603497/.m2/repository/com/typesafe/config/1.3.1/config-1.3.1.jar:/Users/v603497/.m2/repository/org/scala-lang/modules/scala-java8-compat_2.11/0.7.0/scala-java8-compat_2.11-0.7.0.jar:/Users/v603497/.m2/repository/com/typesafe/akka/akka-stream_2.11/2.5.6/akka-stream_2.11-2.5.6.jar:/Users/v603497/.m2/repository/org/reactivestreams/reactive-streams/1.0.1/reactive-streams-1.0.1.jar:/Users/v603497/.m2/repository/com/typesafe/ssl-config-core_2.11/0.2.2/ssl-config-core_2.11-0.2.2.jar:/Users/v603497/.m2/repository/com/typesafe/akka/akka-slf4j_2.11/2.5.6/akka-slf4j_2.11-2.5.6.jar:/Users/v603497/.m2/repository/org/rogach/scallop_2.11/3.0.3/scallop_2.11-3.0.3.jar:/Users/v603497/.m2/repository/org/specs2/specs2-core_2.11/2.4.16/specs2-core_2.11-2.4.16.jar:/Users/v603497/.m2/repository/org/specs2/specs2-matcher_2.11/2.4.16/specs2-matcher_2.11-2.4.16.jar:/Users/v603497/.m2/repository/org/specs2/specs2-common_2.11/2.4.16/specs2-common_2.11-2.4.16.jar:/Users/v603497/.m2/repository/org/scalaz/scalaz-core_2.11/7.1.0/scalaz-core_2.11-7.1.0.jar:/Users/v603497/.m2/repository/org/scalaz/scalaz-concurrent_2.11/7.1.0/scalaz-concurrent_2.11-7.1.0.jar:/Users/v603497/.m2/repository/org/scalaz/scalaz-effect_2.11/7.1.0/scalaz-effect_2.11-7.1.0.jar:/Users/v603497/.m2/repository/org/scalatest/scalatest_2.11/3.0.1/scalatest_2.11-3.0.1.jar:/Users/v603497/.m2/repository/org/scalactic/scalactic_2.11/3.0.1/scalactic_2.11-3.0.1.jar:/Users/v603497/.m2/repository/org/scala-lang/scala-reflect/2.11.8/scala-reflect-2.11.8.jar:/Users/v603497/.m2/repository/org/scala-lang/modules/scala-parser-combinators_2.11/1.0.4/scala-parser-combinators_2.11-1.0.4.jar:/Users/v603497/.m2/repository/com/typesafe/akka/akka-testkit_2.11/2.5.6/akka-testkit_2.11-2.5.6.jar">
+</property>
+    <property name="java.vm.specification.version" value="1.8"> </property>
+    <property name="sun.arch.data.model" value="64"> </property>
+    <property 
+    name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre">
+</property>
+    <property 
+    name="sun.java.command" value="org.scalatest.tools.Runner -R /Users/v603497/Projects/adobelivestream/collector/target/classes /Users/v603497/Projects/adobelivestream/collector/target/test-classes -o -fWDF /Users/v603497/Projects/adobelivestream/collector/target/surefire-reports/TestSuite.txt -u /Users/v603497/Projects/adobelivestream/collector/target/surefire-reports/.">
+</property>
+    <property name="java.specification.vendor" value="Oracle Corporation">
+    </property>
+    <property name="user.language" value="en"> </property>
+    <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit">
+    </property>
+    <property name="java.vm.info" value="mixed mode"> </property>
+    <property name="java.version" value="1.8.0_144"> </property>
+    <property 
+    name="java.ext.dirs" value="/Users/v603497/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java">
+</property>
+    <property 
+    name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home/jre/classes">
+</property>
+    <property name="java.vendor" value="Oracle Corporation"> </property>
+    <property 
+    name="java.security.auth.login.config" value="/Users/v603497/kerberos/jaas.conf">
+</property>
+    <property name="file.separator" value="/"> </property>
+    <property 
+    name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/">
+</property>
+    <property name="sun.cpu.endian" value="little"> </property>
+    <property name="sun.io.unicode.encoding" value="UnicodeBig"> </property>
+    <property 
+    name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16|127.0.0.1|localhost|*.localhost|localunixsocket.local|*.localunixsocket.local">
+</property>
+    <property name="javax.security.auth.useSubjectCredsOnly" value="false">
+    </property>
+    <property 
+    name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16|127.0.0.1|localhost|*.localhost|localunixsocket.local|*.localunixsocket.local">
+</property>
+    <property name="sun.cpu.isalist" value=""> </property>
+  </properties>
+  <testcase 
+  name="A Configuration should parse all provided flags" classname="com.verizon.bdcpe.adobelivestream.collector.CollectorSpec" time="0.0">
+    <skipped/>
+</testcase>
+  <testcase 
+  name="A Stream Config should hold an Int, and three optional Strings" classname="com.verizon.bdcpe.adobelivestream.collector.CollectorSpec" time="0.0">
+    <skipped/>
+</testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

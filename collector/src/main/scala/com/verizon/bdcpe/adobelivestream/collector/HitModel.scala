@@ -1,0 +1,75 @@
+package com.verizon.bdcpe.adobelivestream.collector
+
+/*
+  * Created by Alvaro Muir<alvaro.muir@verizon.com>
+  * Verizon Big Data & Cloud Platform Engineering
+  * 7/23/17.
+  */
+
+//ToDo: Review for missing properties
+object HitModel {
+  case class Hit(
+    reportSuite: String,
+    timeGMT: Double,
+    receivedTimeGMT: Double,
+    hitIdHigh: Double,
+    hitIdLow: Double,
+    mcVisIdHigh: Double,
+    mcVisIdLow: Double,
+    visIdHigh: Double,
+    visIdLow: Double,
+    visIdType: Double,
+    props: Option[Map[String, Any]],
+    evars: Option[Map[String, Map[String, Any]]],
+    events: Option[Map[String, Any]],
+    hierarchies: Option[Map[String, Any]],
+    geoCountry: String,
+    geoRegion: String,
+    geoCity: String,
+    geoZip: String,
+    geoDMA: Double,
+    geoLatitude: Double,
+    geoLongitude: Double,
+    connectionType: String,
+    topLevelDomain: String,
+    languageAbbrev: String,
+    language: String,
+    searchEngine: String,
+    bot: String,
+    operatingSystem: String,
+    browserType: String,
+    browser: String,
+    javascriptVersion: String,
+    monitorWidth: Double,
+    monitorHeight: Double,
+    monitorColorDepth: String,
+    mobileDeviceType: String,
+    mobileDeviceName: String,
+    mobileManufacturer: String,
+    mobileScreenWidth: Double,
+    mobileScreenHeight: Double,
+    mobileCookieSupport: Boolean,
+    mobileColorDepth: String,
+    mobileAudioSupport: String,
+    mobileVideoSupport: String,
+    pageURL: String,
+    pageName: String,
+    usesPersistentCookie: Double,
+    homePage: Double,
+    browserHeight: Double,
+    browserWidth: Double,
+    javaEnabled: Boolean,
+    ip: String,
+    isErrorPage: Boolean,
+    purchaseId: String,
+    referrer: String,
+    state: String,
+    userAgent: String,
+    plugins: String,
+    currency: String,
+    hitSource: Double,
+    transactionId: String,
+    truncated: Boolean,
+    zip: String
+ )
+}
