@@ -11,7 +11,7 @@ As with the collector, required parameters are passed in via parameters with add
 The standalone jar is built by default. Running with the --help flag provides instructions on parameters:
 
 ```
-$java -jar adobelivestream-collector-1.0.jar --help
+$java -jar adobelivestream-kafka-1.0.jar --help
     -k, --app-key  <arg>             Adobe application key
     -s, --app-secret  <arg>          Adobe application secret
     -i, --app-id  <arg>              Adobe application ID
