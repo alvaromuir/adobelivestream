@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.verizon.bdcpe.adobelivestream.core.TokenRequestTest
--------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 0.01 sec - in com.verizon.bdcpe.adobelivestream.core.TokenRequestTest
