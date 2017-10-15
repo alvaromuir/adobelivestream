@@ -25,7 +25,7 @@ $java -jar adobelivestream-collector-1.2.jar --help
     -u, --proxy-username  <arg>      [Opt] Https proxy username
     -p, --proxy-password  <arg>      [Opt] Https proxy password
     -l, --event-limit  <arg>         [Opt] Livestream retrieved events limit
-    -r, --required  <arg>            [Opt] Required fields, comma separate
+    -r, --required  <arg>            [Opt] Required fields, comma separated
     -x, --excluded  <arg>            [Opt] Excluded fields, comma separated
     -f, --filtered-to  <arg>         [Opt] Fields filtered to, comma separated
     

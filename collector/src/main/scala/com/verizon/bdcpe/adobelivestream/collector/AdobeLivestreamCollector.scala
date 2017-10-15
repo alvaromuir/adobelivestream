@@ -1,6 +1,7 @@
 package com.verizon.bdcpe.adobelivestream.collector
 
 import com.verizon.bdcpe.adobelivestream.collector.Processor.writeToConsole
+import com.verizon.bdcpe.adobelivestream.collector.Stream.{Collector, Parameters}
 import org.rogach.scallop.exceptions._
 import org.rogach.scallop.{ScallopConf, ScallopOption}
 
@@ -11,6 +12,9 @@ import scala.language.postfixOps
   * Verizon Big Data & Cloud Platform Engineering
   * 7/23/17.
   */
+
+
+
 
 object AdobeLivestreamCollector {
   val APP_NAME = "adobelivestream.Collector"
@@ -75,12 +79,12 @@ object AdobeLivestreamCollector {
           sys.exit(1)
       }
     }
-    val params = Parameters(conf.appKey.toOption, conf.appSecret.toOption, conf.appId.toOption, conf.connectionsMax.toOption,
-                            conf.oauthTokenUrl.toOption, conf.proxyHost.toOption, conf.proxyPortNumber.toOption,
-                            conf.proxyUsername.toOption, conf.proxyPassword.toOption, conf.eventLimit.toOption,
-                            conf.required.toOption, conf.excluded.toOption, conf.filteredTo.toOption
-                            )
-    val liveStream = Collector(params)
-    liveStream.Collector.start(writeToConsole)
+    val params:Parameters = Parameters(conf.appKey.toOption, conf.appSecret.toOption, conf.appId.toOption, conf.connectionsMax.toOption,
+      conf.oauthTokenUrl.toOption, conf.proxyHost.toOption, conf.proxyPortNumber.toOption,
+      conf.proxyUsername.toOption, conf.proxyPassword.toOption, conf.eventLimit.toOption,
+      conf.required.toOption, conf.excluded.toOption, conf.filteredTo.toOption
+    )
+    val liveStream = new Collector(params)
+    liveStream.start(writeToConsole)
   }
 }
