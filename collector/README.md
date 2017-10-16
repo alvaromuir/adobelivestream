@@ -34,11 +34,11 @@ $java -jar adobelivestream-collector-1.2.jar --help
 ```
 The essential flags are the application key (-k), application secret(-s), application ID (-a), and maximum connections (-m).
 
-For example to add a criteria that requires "prop1" and "prop2" but excludes "prop3" you would run a command with the -r and -e flags,
+For example to add a criteria that requires "prop1" and "prop2" but excludes "prop3" you would run a command with the -r and -x flags,
 respectively:
 
 ```
-$ java -jar adobelivestream-collector-1.1.jar -k $appKey -s $appSecret -a $appId -m 1 -r prop1,prop2 -e prop3
+$ java -jar adobelivestream-collector-1.1.jar -k $appKey -s $appSecret -a $appId -m 1 -r prop1,prop2 -x prop3
 ```
 
 To return a custom JSON with only a subset of desired keys, the filtered-to flag (-f) is needed:
