@@ -10,8 +10,21 @@ import org.slf4j.{Logger, LoggerFactory}
 
 object KafkaService {
   val log: Logger = LoggerFactory.getLogger(getClass.getName)
+
+  /**
+    * Returns settings object proiding parameters for a kafka producer
+    * @param kafkaBrokers list of kafka brokers - comma seperated
+    * @param kafkaTopic desired kafka topic
+    * @param kafkaClientId [Opt] kafka client ID for JMX
+    * @param kerberosEnabled [Opt] SASL flag, ommit for 'false'
+    */
   case class Settings(kafkaBrokers: String, kafkaTopic: String, kafkaClientId: Option[String] = None, kerberosEnabled: Boolean)
 
+  /**
+    * Returns a plain Kafka producer with provided Settings object
+    * @param settings Settings object
+    * @return kafka producer with integer keys and string values
+    */
   def createProducer(settings: Settings): KafkaProducer[Integer, String] = {
     log.info(s"connecting to kafka with the following settings: {brokers: ${settings.kafkaBrokers}, " +
       s"topic: ${settings.kafkaTopic}, clientId: ${settings.kafkaClientId}, kerberosEnabled: ${settings.kerberosEnabled}}")
