@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 
 // low-level class that returns both a closable client as well as a closeable response
 public class Connection implements Runnable {
-    private static final Logger log = LoggerFactory.getLogger(Connection.class);
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
     private Credentials credentials;
     private Endpoint endpoint;

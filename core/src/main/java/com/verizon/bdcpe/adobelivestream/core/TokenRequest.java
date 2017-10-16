@@ -32,7 +32,7 @@ import java.util.Map;
  */
 
 public class TokenRequest {
-    private final Logger log = LoggerFactory.getLogger(TokenRequest.class);
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
     private String clientId;
     private String clientSecret;

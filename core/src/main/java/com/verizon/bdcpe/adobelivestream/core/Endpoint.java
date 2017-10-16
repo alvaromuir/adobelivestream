@@ -9,7 +9,7 @@ import java.util.Objects;
  * Created by alvaro on 7/3/17.
  */
 public class Endpoint {
-    private static final Logger log = LoggerFactory.getLogger(Credentials.class);
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
     private String streamDomain;
     private String applicationId;

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class TokenRequestTest {
-    private final Logger log = LoggerFactory.getLogger(TokenRequestTest.class);
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
 //    Be sure to setup appropriate variables in TestConstants.java class . . .
     private Credentials credentials;

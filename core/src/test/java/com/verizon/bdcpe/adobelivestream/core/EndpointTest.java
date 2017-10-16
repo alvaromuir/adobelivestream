@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class EndpointTest {
-    private Logger log = LoggerFactory.getLogger(EndpointTest.class);
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
     //    Be sure to setup appropriate variables in TestConstants.java class . . .
     private String applicationId = TestConstants.APPLICATION_ID;

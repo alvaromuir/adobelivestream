@@ -18,8 +18,8 @@ import static java.lang.System.out;
  */
 
 
-public class AdobeLiveStream {
-    private static final Logger log = LoggerFactory.getLogger(AdobeLiveStream.class);
+public class AdobeLiveStreamCore {
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
     /* this is a toy test class that simply logs the stream to stdout */
 
     /**

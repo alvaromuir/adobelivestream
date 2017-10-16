@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 
 public class Credentials {
-    private static final Logger log = LoggerFactory.getLogger(Credentials.class);
+    private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 
     private String clientId;
     private String clientSecret;
