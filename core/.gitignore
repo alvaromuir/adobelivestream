@@ -39,3 +39,5 @@ build.log
 
 #output not in target directory
 build.log
+
+.idea
