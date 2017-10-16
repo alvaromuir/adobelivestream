@@ -16,7 +16,7 @@ See individual module README's for details.
 The project is built via Maven; Tests are included but have been disabled for compiling due to the nature of credential 
 and endpoint settings. The entire project can be built from the root or within individual modules as simply as:
                       
-```$ mvn clean package -Dmaven.test.skip=true```
+```$ mvn clean install -Dmaven.test.skip=true```
 
 ## Overall Setup
 
