@@ -31,7 +31,7 @@ import java.util.Map;
  * 6/24/17.
  */
 
-class TokenRequest {
+public class TokenRequest {
     private final Logger log = LoggerFactory.getLogger(TokenRequest.class);
 
     private String clientId;
@@ -43,7 +43,7 @@ class TokenRequest {
     private String proxyPassword;
     private CloseableHttpResponse response;
 
-    TokenRequest(com.verizon.bdcpe.adobelivestream.core.Credentials credentials)
+    public TokenRequest(com.verizon.bdcpe.adobelivestream.core.Credentials credentials)
     {
         this.clientId = credentials.getClientId();
         this.clientSecret = credentials.getClientSecret();
@@ -58,7 +58,7 @@ class TokenRequest {
      *
      * @return OAuth 2.0 token.
      */
-    String newToken() throws IOException, AuthenticationException, MalformedChallengeException {
+    public String newToken() throws IOException, AuthenticationException, MalformedChallengeException {
         String tokenResponse;
         HttpPost httpPost = new HttpPost(tokenRequestUrl);
         String errMsg;

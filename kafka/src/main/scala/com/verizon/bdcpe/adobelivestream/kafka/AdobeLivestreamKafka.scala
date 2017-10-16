@@ -1,6 +1,7 @@
 package com.verizon.bdcpe.adobelivestream.kafka
 
-import com.verizon.bdcpe.adobelivestream.collector.{Collector, Parameters}
+import com.verizon.bdcpe.adobelivestream.collector.Collector
+import com.verizon.bdcpe.adobelivestream.collector.Parameters
 import com.verizon.bdcpe.adobelivestream.kafka.KafkaService.{Settings, createProducer}
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.rogach.scallop.exceptions._
@@ -39,7 +40,7 @@ object AdobeLivestreamKafka {
     val oauthTokenUrl: ScallopOption[String] = opt[String](short = 'o', descr = "[Opt] Adobe OAuth Token Url")
     val kafkaBrokers: ScallopOption[String] = opt[String](short = 'b', descr = "Kafka brokers list, comma separated", required = true)
     val kafkaTopic: ScallopOption[String] = opt[String](short = 't', descr = "Kafka topic", required = true)
-    val kafkaClientId: ScallopOption[String] = opt[String](short = 'c', descr = "[Opt] Kafka clientId", required = true)
+    val kafkaClientId: ScallopOption[String] = opt[String](short = 'c', descr = "[Opt] Kafka clientId")
     val kerberosEnabled: ScallopOption[Boolean] = opt[Boolean](short = 'e', descr = "[Opt] Kerberos SASL flag")
     val proxyHost: ScallopOption[String] = opt[String](short = 'h', descr = "[Opt] Https proxy host")
     val proxyPortNumber: ScallopOption[Int] = opt[Int](short = 'n', default = Some(80), descr = "[Opt] Https proxy port")
@@ -78,23 +79,26 @@ object AdobeLivestreamKafka {
           sys.exit(1)
       }
     }
-    val params = Parameters(conf.appKey.toOption, conf.appSecret.toOption, conf.appId.toOption, conf.connectionsMax.toOption,
-      conf.oauthTokenUrl.toOption, conf.proxyHost.toOption, conf.proxyPortNumber.toOption,
-      conf.proxyUsername.toOption, conf.proxyPassword.toOption, conf.eventLimit.toOption,
-      conf.required.toOption, conf.excluded.toOption, conf.filteredTo.toOption
+
+
+    val params:Parameters = Parameters(conf.appKey.toOption, conf.appSecret.toOption, conf.appId.toOption,
+      conf.connectionsMax.toOption, conf.oauthTokenUrl.toOption, conf.proxyHost.toOption, conf.proxyPortNumber.toOption,
+      conf.proxyUsername.toOption, conf.proxyPassword.toOption, conf.eventLimit.toOption, conf.required.toOption,
+      conf.excluded.toOption, conf.filteredTo.toOption
     )
     val kafkaSettings = Settings(
       conf.kafkaBrokers(),
       conf.kafkaTopic(),
-      conf.kafkaClientId(),
+      conf.kafkaClientId.toOption,
       conf.kerberosEnabled()
     )
+
     val producer = createProducer(kafkaSettings)
     def sendToKafka(event: Any): Unit = {
       producer.send(new ProducerRecord[Integer, String](kafkaSettings.kafkaTopic, event.toString))
     }
-    val liveStream = Collector(params)
-    liveStream.Collector.start(sendToKafka)
+    val collector = new Collector(params)
+    collector.start(sendToKafka)
   }
 
 }

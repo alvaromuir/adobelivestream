@@ -20,15 +20,15 @@ public class Credentials {
     private String proxyUserName;
     private String proxyPassword;
 
-    String getClientId() { return clientId; }
-    String getClientSecret() { return clientSecret; }
-    String getTokenRequestUrl() { return tokenRequestUrl; }
-    String getProxyHost() { return proxyHost; }
-    Integer getProxyPortNumber() { return proxyPortNumber; }
-    String getProxyUserName() { return proxyUserName; }
-    String getProxyPassword() { return proxyPassword; }
+    public String getClientId() { return clientId; }
+    public String getClientSecret() { return clientSecret; }
+    public String getTokenRequestUrl() { return tokenRequestUrl; }
+    public String getProxyHost() { return proxyHost; }
+    public Integer getProxyPortNumber() { return proxyPortNumber; }
+    public String getProxyUserName() { return proxyUserName; }
+    public String getProxyPassword() { return proxyPassword; }
 
-    private Credentials(Builder builder) {
+    Credentials(Builder builder) {
         this.clientId = builder.clientId;
         this.clientSecret = builder.clientSecret;
         this.tokenRequestUrl = builder.tokenRequestUrl;
@@ -40,42 +40,42 @@ public class Credentials {
     }
 
     public static class Builder {
-        private String clientId;
-        private String clientSecret;
-        private String tokenRequestUrl = Constants.DEFAULT_TOKEN_REQUEST_URL;
-        private String proxyHost;
-        private Integer proxyPortNumber;
-        private String proxyUserName;
-        private String proxyPassword;
+        String clientId;
+        String clientSecret;
+        String tokenRequestUrl = Constants.DEFAULT_TOKEN_REQUEST_URL;
+        String proxyHost;
+        Integer proxyPortNumber;
+        String proxyUserName;
+        String proxyPassword;
 
 
-        Builder(String clientId, String clientSecret) {
+        public Builder(String clientId, String clientSecret) {
             this.clientId = clientId;
             this.clientSecret = clientSecret;
 
         }
 
-        Builder tokenRequestUrl(String tokenRequestUrl) {
+        public Builder tokenRequestUrl(String tokenRequestUrl) {
             this.tokenRequestUrl = tokenRequestUrl;
             return this;
         }
 
-        Builder proxyHost(String proxyHost) {
+        public Builder proxyHost(String proxyHost) {
             this.proxyHost = proxyHost;
             return this;
         }
 
-        Builder proxyPortNumber(Integer proxyPortNumber){
+        public Builder proxyPortNumber(Integer proxyPortNumber){
             this.proxyPortNumber = proxyPortNumber;
             return this;
         }
 
-        Builder proxyUserName(String proxyUserName) {
+        public Builder proxyUserName(String proxyUserName) {
             this.proxyUserName = proxyUserName;
             return this;
         }
 
-        Builder proxyPassword(String proxyPassword) {
+        public Builder proxyPassword(String proxyPassword) {
             this.proxyPassword = proxyPassword;
             return this;
         }

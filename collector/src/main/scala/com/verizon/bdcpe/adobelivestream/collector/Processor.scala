@@ -1,7 +1,7 @@
 package com.verizon.bdcpe.adobelivestream.collector
 
+import com.verizon.bdcpe.adobelivestream.collector.Collector.system
 import akka.actor.{Actor, ActorRef, Props}
-import com.verizon.bdcpe.adobelivestream.collector.Stream.system
 import org.slf4j.{Logger, LoggerFactory}
 
 object Processor {

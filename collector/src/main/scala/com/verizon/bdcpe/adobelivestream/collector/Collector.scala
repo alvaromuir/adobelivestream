@@ -4,84 +4,72 @@ import java.util.concurrent.LinkedBlockingQueue
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import org.json4s.{DefaultFormats, _}
+import com.verizon.bdcpe.adobelivestream.collector.Collector.{Config, Flow}
+import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
+import com.verizon.bdcpe.adobelivestream.collector.Processor.FilteredHit
+import com.verizon.bdcpe.adobelivestream.core.{Connection, Credentials, Endpoint, TokenRequest}
+import org.json4s.{DefaultFormats, Extraction, JObject}
 import org.json4s.jackson.JsonMethods.{compact, parse, render}
 import org.json4s.jackson.Serialization.write
 import org.json4s.JsonDSL._
 import org.slf4j.{Logger, LoggerFactory}
-import com.verizon.bdcpe.adobelivestream.core.{Connection, Credentials, Endpoint, TokenRequest}
-import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
-import com.verizon.bdcpe.adobelivestream.collector.Processor.FilteredHit
 
-/*
-  * Created by Alvaro Muir<alvaro.muir@verizon.com>
-  * Verizon Big Data & Cloud Platform Engineering
-  * 7/23/17.
+
+/** Returns parameter object sets up the stream on both client and server side
+  *
+  * @param appKey Adobe application key
+  * @param appSecret Adobe application secret
+  * @param appId Adobe application ID
+  * @param connectionsMax max concurrent connections
+  * @param tokenGetUrl [Opt] Adobe OAuth Token Url
+  * @param proxyHost [Opt] Https proxy host
+  * @param proxyPortNumber [Opt] Https proxy port
+  * @param proxyUsername [Opt] Https proxy username
+  * @param proxyPassword [Opt] Https proxy password
+  * @param eventLimit [Opt] Livestream retrieved events limit
+  * @param required [Opt] Required fields, comma separated
+  * @param excluded [Opt] Excluded fields, comma separated
+  * @param filteredTo [Opt] Fields filtered to, comma separated
   */
+case class Parameters(appKey: Option[String] = None, appSecret: Option[String] = None, appId: Option[String] = None,
+                      connectionsMax: Option[Int] = None, tokenGetUrl: Option[String] = None, proxyHost: Option[String],
+                      proxyPortNumber: Option[Int] = None, proxyUsername: Option[String] = None,
+                      proxyPassword: Option[String] = None, eventLimit: Option[Int] = None,
+                      required: Option[String] = None, excluded: Option[String] = None,
+                      filteredTo: Option[String] = None
+                     )
 
-object Stream {
+/** Returns a collector object that provides required stream settings as well as a lambda "start" function
+  *
+  * @param params Parameter object
+  */
+class Collector(params: Parameters) {
+  val credentials: Credentials.Builder = new Credentials.Builder(params.appKey.get, params.appSecret.get)
 
-  /** Returns a collector object that provides required stream settings as well as a partial "start" function
-    *
-    * @param params Parameter object
-    */
-  class Collector(params: Parameters) {
-    val maxConns: Int = params.connectionsMax match {
-      case Some(x: Int) => x
-      case _ => 0
-    }
+  if (params.tokenGetUrl.isDefined) credentials.tokenRequestUrl(params.tokenGetUrl.get)
+  if (params.proxyHost.isDefined) credentials.proxyHost(params.proxyHost.get)
+  if (params.proxyPortNumber.isDefined) credentials.proxyPortNumber(params.proxyPortNumber.get)
+  if (params.proxyUsername.isDefined) credentials.proxyUserName(params.proxyUsername.get)
+  if (params.proxyPassword.isDefined) credentials.proxyUserName(params.proxyPassword.get)
 
-    val credentials: Credentials.Builder = new Credentials.Builder(params.appKey.get, params.appSecret.get)
+  val creds:Credentials = credentials.build()
 
-    if (params.tokenGetUrl.isDefined) credentials.tokenRequestUrl(params.tokenGetUrl.get)
-    if (params.proxyHost.isDefined) credentials.proxyHost(params.proxyHost.get)
-    if (params.proxyPortNumber.isDefined) credentials.proxyPortNumber(params.proxyPortNumber.get)
-    if (params.proxyUsername.isDefined) credentials.proxyUserName(params.proxyUsername.get)
-    if (params.proxyPassword.isDefined) credentials.proxyUserName(params.proxyPassword.get)
-
-    val creds: Credentials = credentials.build()
-    val events = new LinkedBlockingQueue[String]()
-    val connection: Connection = new Connection.Builder(
-      creds,
-      new Endpoint.Builder(params.appId.get, maxConns).build(),
-      new TokenRequest(creds).newToken()
+  val events: LinkedBlockingQueue[String] = new LinkedBlockingQueue[String]()
+  val connection: Connection = new Connection.Builder(
+    creds,
+    new Endpoint.Builder(params.appId.get, params.connectionsMax.get).build(),
+    new TokenRequest(creds).newToken()
     ).eventQueue(events).build()
+  val streamConfig: Config = Config(params.eventLimit.getOrElse(0),
+    params.required,
+    params.excluded,
+    params.filteredTo)
 
-    val streamConfig = Config(params.eventLimit.getOrElse(0),
-      params.required,
-      params.excluded,
-      params.filteredTo)
-
-    val flow = new Flow(connection, events, streamConfig)
-
-    def start(fn: (Any) => Unit): Unit = { flow.start(fn: (Any) => Unit) }
-  }
+  def start(fn: (Any) => Unit): Unit = { new Flow(connection, events, streamConfig).start(fn: (Any) => Unit) }
+}
 
 
-  /** Returns parameter object sets up the stream on both client and server side
-    *
-    * @param appKey Adobe application key
-    * @param appSecret Adobe application secret
-    * @param appId Adobe application ID
-    * @param connectionsMax max concurrent connections
-    * @param tokenGetUrl [Opt] Adobe OAuth Token Url
-    * @param proxyHost [Opt] Https proxy host
-    * @param proxyPortNumber [Opt] Https proxy port
-    * @param proxyUsername [Opt] Https proxy username
-    * @param proxyPassword [Opt] Https proxy password
-    * @param eventLimit [Opt] Livestream retrieved events limit
-    * @param required [Opt] Required fields, comma separated
-    * @param excluded [Opt] Excluded fields, comma separated
-    * @param filteredTo [Opt] Fields filtered to, comma separated
-    */
-  case class Parameters(appKey: Option[String] = None, appSecret: Option[String] = None, appId: Option[String] = None,
-                        connectionsMax: Option[Int] = None, tokenGetUrl: Option[String] = None, proxyHost: Option[String],
-                        proxyPortNumber: Option[Int] = None, proxyUsername: Option[String] = None,
-                        proxyPassword: Option[String] = None, eventLimit: Option[Int] = None,
-                        required: Option[String] = None, excluded: Option[String] = None,
-                        filteredTo: Option[String] = None
-                       )
-
+object Collector {
   implicit val system: ActorSystem = ActorSystem("AdobeLivestreamSystem")
   implicit val materializer: ActorMaterializer = ActorMaterializer()
   implicit val formats: DefaultFormats = DefaultFormats
@@ -242,4 +230,10 @@ object Stream {
       collector.interrupt()
     }
   }
+
+
 }
+
+
+
+

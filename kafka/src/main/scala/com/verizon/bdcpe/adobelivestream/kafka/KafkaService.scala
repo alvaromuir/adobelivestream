@@ -10,12 +10,13 @@ import org.slf4j.{Logger, LoggerFactory}
 
 object KafkaService {
   val log: Logger = LoggerFactory.getLogger(getClass.getName)
-  case class Settings(kafkaBrokers: String, kafkaTopic: String, kafkaClientId: String, kerberosEnabled: Boolean)
+  case class Settings(kafkaBrokers: String, kafkaTopic: String, kafkaClientId: Option[String] = None, kerberosEnabled: Boolean)
 
   def createProducer(settings: Settings): KafkaProducer[Integer, String] = {
     log.info(s"connecting to kafka with the following settings: {brokers: ${settings.kafkaBrokers}, " +
       s"topic: ${settings.kafkaTopic}, clientId: ${settings.kafkaClientId}, kerberosEnabled: ${settings.kerberosEnabled}}")
-    new KafkaProducer[Integer,String](generateProps(settings.kafkaBrokers, settings.kafkaClientId, settings.kerberosEnabled))
+    //  ToDo: pass in logging directive from main
+    new KafkaProducer[Integer,String](generateProps(settings.kafkaBrokers, settings.kafkaClientId.getOrElse(""), settings.kerberosEnabled))
   }
 
   def generateProps(servers: String, clientID: String, secureTransport: Boolean = false): java.util.Properties = {

@@ -16,10 +16,10 @@ public class Endpoint {
     private Integer maxConnections;
     private String streamReset;
 
-    String getStreamDomain() { return streamDomain; }
-    String getApplicationId() { return applicationId; }
-    Integer getMaxConnections() { return maxConnections; }
-    String getStreamReset(){ return streamReset; }
+    public String getStreamDomain() { return streamDomain; }
+    public String getApplicationId() { return applicationId; }
+    public Integer getMaxConnections() { return maxConnections; }
+    public String getStreamReset(){ return streamReset; }
 
 
     private Endpoint(Builder builder) {
@@ -32,13 +32,13 @@ public class Endpoint {
 
 
     public static class Builder {
-        private String streamDomain = Constants.STREAM_HOST;
-        private String applicationId;
-        private Integer maxConnections;
-        private String streamReset;
+        String streamDomain = Constants.STREAM_HOST;
+        String applicationId;
+        Integer maxConnections;
+        String streamReset;
 
 
-        Builder(String applicationId, Integer maxConnections) {
+        public Builder(String applicationId, Integer maxConnections) {
             this.applicationId = applicationId;
             this.maxConnections = maxConnections;
         }

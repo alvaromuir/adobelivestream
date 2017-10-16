@@ -1,7 +1,7 @@
 package com.verizon.bdcpe.adobelivestream.collector
 
 import com.verizon.bdcpe.adobelivestream.collector.AdobeLivestreamCollector.Configuration
-import com.verizon.bdcpe.adobelivestream.collector.Stream.Config
+import com.verizon.bdcpe.adobelivestream.collector.Collector.Config
 import com.verizon.bdcpe.adobelivestream.core._
 import org.scalatest.{FlatSpec, Ignore, Matchers}
 

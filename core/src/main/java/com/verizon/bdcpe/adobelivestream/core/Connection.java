@@ -137,13 +137,13 @@ public class Connection implements Runnable {
         private String accessToken;
         private BlockingQueue<String> eventQueue;
 
-        Builder(Credentials credentials, Endpoint endpoint, String accessToken) {
+        public Builder(Credentials credentials, Endpoint endpoint, String accessToken) {
             this.credentials = credentials;
             this.endpoint = endpoint;
             this.accessToken = accessToken;
         }
 
-        Builder eventQueue(BlockingQueue<String> eventQueue) {
+        public Builder eventQueue(BlockingQueue<String> eventQueue) {
             this.eventQueue = eventQueue;
             return this;
         }
