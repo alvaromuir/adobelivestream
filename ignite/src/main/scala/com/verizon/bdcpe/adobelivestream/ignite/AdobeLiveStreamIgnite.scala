@@ -2,8 +2,10 @@ package com.verizon.bdcpe.adobelivestream.ignite
 
 import scala.collection.JavaConversions._
 import java.lang.{Iterable => JavaIterable}
+import java.text.SimpleDateFormat
 import javax.cache.configuration.Factory
-import java.time.Instant
+import java.time.{Instant, ZoneOffset, ZonedDateTime}
+import java.util.{Date, TimeZone}
 import javax.cache.event.{CacheEntryEvent, CacheEntryEventFilter, CacheEntryUpdatedListener}
 
 import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
@@ -37,7 +39,6 @@ object AdobeLiveStreamIgnite {
     */
   case class Configuration(arguments: Seq[String]) extends ScallopConf(arguments) {
     mainOptions = Seq(appKey, appSecret, appId, connectionsMax,
-//      kafkaBrokers, kafkaTopic, kafkaClientId, kerberosEnabled,
       igniteCacheName, igniteConfigPath,
       oauthTokenUrl, proxyHost, proxyPortNumber, proxyUsername, proxyPassword, eventLimit, required, excluded, filteredTo)
 
@@ -113,15 +114,17 @@ object AdobeLiveStreamIgnite {
 
       qry.setInitialQuery(new ScanQuery[Double, Double](new IgniteBiPredicate[Double, Double] {
         override def apply(key: Double, value: Double): Boolean = {
-          value > Instant.now.minusSeconds(igniteSettings.evictionTime).toEpochMilli.toDouble
+          value < Instant.now.minusSeconds(igniteSettings.evictionTime).toEpochMilli.toDouble
         }
       }))
 
 
-      qry.setLocalListener(new CacheEntryUpdatedListener[Double, Double] {
+      qry.setLocalListener(new CacheEntryUpdatedListener[Double, Double]{
         override def onUpdated(events: JavaIterable[CacheEntryEvent[_ <: Double, _ <: Double]]) {
-          for (e <- events)
-            println("Updated entry [key=" + e.getKey + ", val=" + e.getValue + ']')
+          for (e <- events) {
+//            println("Expired entry [key=" + e.getKey + ", val=" + e.getValue + ']')
+            cache.remove(e.getKey)
+          }
         }
       })
 
@@ -130,16 +133,23 @@ object AdobeLiveStreamIgnite {
         override def create(): CacheEntryEventFilter[Double, Double] = {
           new CacheEntryEventFilter[Double, Double] {
             override def evaluate(event: CacheEntryEvent[_ <: Double, _ <: Double]): Boolean = {
-              event.getValue > Instant.now.minusSeconds(igniteSettings.evictionTime).toEpochMilli.toDouble
+              event.getValue < Instant.now.minusSeconds(igniteSettings.evictionTime).toEpochMilli.toDouble
             }
           }
         }
       })
 
       // Execute query
+      val now = new Date
+      val simpleDateFormat = new SimpleDateFormat("hh:mm:ss")
+      val localDateFormat = new SimpleDateFormat("hh:mm:ss")
+      localDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"))
       val cur = cache.query(qry)
       try {
-        for (e <- cur) println("Expired entry [key=" + e.getKey + ", val=" + e.getValue + ']')
+        for (e <- cur) {
+          println(s"Expired entry [key=${e.getKey}, val=${simpleDateFormat.format(e.getValue.toLong)}, now = ${localDateFormat.format(now)}]")
+//          cache.remove(e.getKey)
+        }
         Thread.sleep(2000)
       }
       finally {

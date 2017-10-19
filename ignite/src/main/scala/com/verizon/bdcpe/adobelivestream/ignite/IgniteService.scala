@@ -1,8 +1,7 @@
 package com.verizon.bdcpe.adobelivestream.ignite
 
 
-import java.lang.{Iterable => JavaIterable}
-import java.time.Instant
+
 import javax.cache.configuration.Factory
 import javax.cache.event.{CacheEntryEvent, CacheEntryEventFilter, CacheEntryUpdatedListener}
 
@@ -11,8 +10,6 @@ import org.apache.ignite.lang.IgniteBiPredicate
 import org.apache.ignite.{Ignite, IgniteCache, Ignition}
 import org.slf4j
 import org.slf4j.LoggerFactory
-
-import scala.collection.JavaConversions._
 
 /*
   * Created by Alvaro Muir<alvaro.muir@verizon.com>
@@ -41,13 +38,5 @@ object IgniteService {
     val ignite: Ignite = Ignition.start(settings.configPath)
     ignite.getOrCreateCache(settings.cacheName)
   }
-
-  /**
-    * Initializes specific cache searching queries throughout cluster
-    * @param cache is an IgniteCache of double keys and double values
-    */
-//  def prepCacheQuery(cache: IgniteCache[Double, Double], evictionTime: Int): Unit = {
-//    ???
-//  }
 }
-
+  
