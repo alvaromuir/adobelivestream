@@ -50,7 +50,7 @@ class Collector(params: Parameters) {
   if (params.proxyHost.isDefined) credentials.proxyHost(params.proxyHost.get)
   if (params.proxyPortNumber.isDefined) credentials.proxyPortNumber(params.proxyPortNumber.get)
   if (params.proxyUsername.isDefined) credentials.proxyUserName(params.proxyUsername.get)
-  if (params.proxyPassword.isDefined) credentials.proxyUserName(params.proxyPassword.get)
+  if (params.proxyPassword.isDefined) credentials.proxyPassword(params.proxyPassword.get)
 
   val creds:Credentials = credentials.build()
 

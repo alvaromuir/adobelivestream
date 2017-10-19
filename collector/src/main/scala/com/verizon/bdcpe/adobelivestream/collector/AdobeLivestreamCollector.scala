@@ -34,7 +34,7 @@ object AdobeLivestreamCollector {
     val appKey: ScallopOption[String] = opt[String](short = 'k', descr = "Adobe application key", required = true)
     val appSecret: ScallopOption[String] = opt[String](short = 's', descr = "Adobe application secret", required = true)
     val appId: ScallopOption[String] = opt[String](short = 'i', descr = "Adobe application ID", required = true)
-    val connectionsMax: ScallopOption[Int] = opt[Int](short = 'm', validate = 9 >, descr = "max concurrent connections", required = true)
+    val connectionsMax: ScallopOption[Int] = opt[Int](short = 'm', validate = 9>, descr = "max concurrent connections", required = true)
     val oauthTokenUrl: ScallopOption[String] = opt[String](short = 'o', descr = "[Opt] Adobe OAuth Token Url")
     val proxyHost: ScallopOption[String] = opt[String](short = 'h', descr = "[Opt] Https proxy host")
     val proxyPortNumber: ScallopOption[Int] = opt[Int](short = 'n', default = Some(80), descr = "[Opt] Https proxy port")

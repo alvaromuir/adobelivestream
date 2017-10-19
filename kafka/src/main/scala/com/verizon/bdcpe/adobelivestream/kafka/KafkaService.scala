@@ -12,13 +12,13 @@ object KafkaService {
   val log: Logger = LoggerFactory.getLogger(getClass.getName)
 
   /**
-    * Returns settings object proiding parameters for a kafka producer
-    * @param kafkaBrokers list of kafka brokers - comma seperated
-    * @param kafkaTopic desired kafka topic
-    * @param kafkaClientId [Opt] kafka client ID for JMX
-    * @param kerberosEnabled [Opt] SASL flag, ommit for 'false'
+    * Returns settings object providing parameters for a kafka producer
+    * @param brokers list of kafka brokers - comma separated
+    * @param topic desired kafka topic
+    * @param clientId [Opt] kafka client ID for JMX
+    * @param kerberosEnabled [Opt] SASL flag, omit for 'false'
     */
-  case class Settings(kafkaBrokers: String, kafkaTopic: String, kafkaClientId: Option[String] = None, kerberosEnabled: Boolean)
+  case class Settings(brokers: String, topic: String, clientId: Option[String] = None, kerberosEnabled: Boolean)
 
   /**
     * Returns a plain Kafka producer with provided Settings object
@@ -26,10 +26,10 @@ object KafkaService {
     * @return kafka producer with integer keys and string values
     */
   def createProducer(settings: Settings): KafkaProducer[Integer, String] = {
-    log.info(s"connecting to kafka with the following settings: {brokers: ${settings.kafkaBrokers}, " +
-      s"topic: ${settings.kafkaTopic}, clientId: ${settings.kafkaClientId}, kerberosEnabled: ${settings.kerberosEnabled}}")
+    log.info(s"connecting to kafka with the following settings: {brokers: ${settings.brokers}, " +
+      s"topic: ${settings.topic}, clientId: ${settings.clientId}, kerberosEnabled: ${settings.kerberosEnabled}}")
     //  ToDo: pass in logging directive from main
-    new KafkaProducer[Integer,String](generateProps(settings.kafkaBrokers, settings.kafkaClientId.getOrElse(""), settings.kerberosEnabled))
+    new KafkaProducer[Integer,String](generateProps(settings.brokers, settings.clientId.getOrElse(""), settings.kerberosEnabled))
   }
 
   def generateProps(servers: String, clientID: String, secureTransport: Boolean = false): java.util.Properties = {
@@ -51,8 +51,6 @@ object KafkaService {
     }
     props
   }
-
-
 
   //  ToDo: write methods to check if kafka broker is live. Probably need to do this via Zookeeper?
 

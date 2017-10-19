@@ -12,6 +12,7 @@
         <module>core</module>
         <module>collector</module>
         <module>kafka</module>
+        <module>ignite</module>
     </modules>
 
 

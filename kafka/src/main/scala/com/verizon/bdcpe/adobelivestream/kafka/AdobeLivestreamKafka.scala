@@ -36,7 +36,7 @@ object AdobeLivestreamKafka {
     val appKey: ScallopOption[String] = opt[String](short = 'k', descr = "Adobe application key", required = true)
     val appSecret: ScallopOption[String] = opt[String](short = 's', descr = "Adobe application secret", required = true)
     val appId: ScallopOption[String] = opt[String](short = 'i', descr = "Adobe application ID", required = true)
-    val connectionsMax: ScallopOption[Int] = opt[Int](short = 'm', validate = 9 >, descr = "max concurrent connections", required = true)
+    val connectionsMax: ScallopOption[Int] = opt[Int](short = 'm', validate = 9>, descr = "max concurrent connections", required = true)
     val oauthTokenUrl: ScallopOption[String] = opt[String](short = 'o', descr = "[Opt] Adobe OAuth Token Url")
     val kafkaBrokers: ScallopOption[String] = opt[String](short = 'b', descr = "Kafka brokers list, comma separated", required = true)
     val kafkaTopic: ScallopOption[String] = opt[String](short = 't', descr = "Kafka topic", required = true)
@@ -79,8 +79,6 @@ object AdobeLivestreamKafka {
           sys.exit(1)
       }
     }
-
-
     val params:Parameters = Parameters(conf.appKey.toOption, conf.appSecret.toOption, conf.appId.toOption,
       conf.connectionsMax.toOption, conf.oauthTokenUrl.toOption, conf.proxyHost.toOption, conf.proxyPortNumber.toOption,
       conf.proxyUsername.toOption, conf.proxyPassword.toOption, conf.eventLimit.toOption, conf.required.toOption,
@@ -92,13 +90,11 @@ object AdobeLivestreamKafka {
       conf.kafkaClientId.toOption,
       conf.kerberosEnabled()
     )
-
     val producer = createProducer(kafkaSettings)
     def sendToKafka(event: Any): Unit = {
-      producer.send(new ProducerRecord[Integer, String](kafkaSettings.kafkaTopic, event.toString))
+      producer.send(new ProducerRecord[Integer, String](kafkaSettings.topic, event.toString))
     }
     val collector = new Collector(params)
     collector.start(sendToKafka)
   }
-
 }

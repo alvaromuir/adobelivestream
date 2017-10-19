@@ -9,6 +9,7 @@
         <module name="adobe-livestream" />
         <module name="collector" />
         <module name="core" />
+        <module name="ignite" />
         <module name="kafka" />
       </profile>
     </annotationProcessing>
@@ -17,6 +18,7 @@
       <module name="adobelivestream" target="1.5" />
       <module name="collector" target="1.6" />
       <module name="core" target="1.8" />
+      <module name="ignite" target="1.8" />
       <module name="kafka" target="1.6" />
     </bytecodeTargetLevel>
   </component>
