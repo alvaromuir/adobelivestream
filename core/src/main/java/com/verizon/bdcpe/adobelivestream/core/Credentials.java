@@ -102,7 +102,7 @@ public class Credentials {
                         this.getProxyHost(),
                         this.getProxyPortNumber(),
                         this.getProxyUserName(),
-                        this.getProxyPassword()
+                        this.getProxyPassword().replaceAll("(?!^).(?!$)","*")
         );
     }
 }
