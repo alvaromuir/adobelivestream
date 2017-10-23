@@ -4,7 +4,7 @@ import scala.collection.JavaConversions._
 import java.lang.{Iterable => JavaIterable}
 import java.text.SimpleDateFormat
 import javax.cache.configuration.Factory
-import java.time.{Instant, ZoneOffset, ZonedDateTime}
+import java.time.Instant
 import java.util.{Date, TimeZone}
 import javax.cache.event.{CacheEntryEvent, CacheEntryEventFilter, CacheEntryUpdatedListener}
 
@@ -106,7 +106,7 @@ object AdobeLiveStreamIgnite {
     val cache = createCache(igniteSettings)
     def sendToIgnite(event: Any): Unit = {
       implicit val formats: DefaultFormats = DefaultFormats
-      val hit = parse(event.toString).extract[Hit]
+      val hit = event.asInstanceOf[Hit]
       val cacheEntry:CacheEntry = CacheEntry(hit.hitIdHigh + hit.hitIdLow, hit.timeGMT)
       cache.put(cacheEntry.sessionId, cacheEntry.timeGMT)
 

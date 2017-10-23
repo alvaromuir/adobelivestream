@@ -10,7 +10,6 @@ import com.verizon.bdcpe.adobelivestream.collector.Processor.FilteredHit
 import com.verizon.bdcpe.adobelivestream.core.{Connection, Credentials, Endpoint, TokenRequest}
 import org.json4s.{DefaultFormats, Extraction, JObject}
 import org.json4s.jackson.JsonMethods.{compact, parse, render}
-import org.json4s.jackson.Serialization.write
 import org.json4s.JsonDSL._
 import org.slf4j.{Logger, LoggerFactory}
 
@@ -200,7 +199,7 @@ object Collector {
           val event = parse(queue.take).extract[Hit]
           if(event != null) {
             if (filteredTo.isDefined) process(fn, FilteredHit(filter(event)))
-            else process(fn, write(event))
+            else process(fn, event)
             limit -= 1
           }
         }
@@ -213,13 +212,11 @@ object Collector {
           val event: Hit = parse(queue.take).extract[Hit]
           if(event != null) {
             if (filteredTo.isDefined) process(fn, FilteredHit(filter(event)))
-            else process(fn, write(event))
-
+            else process(fn, event)
           }
         }
         catch { case e: Exception => log.error(e.getMessage) }
       }
-
     }
 
     /** Stop ends the collector, the processing and closes the stream

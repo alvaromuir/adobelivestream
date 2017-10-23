@@ -15,7 +15,7 @@ import scala.language.postfixOps
   * 10/9/17.
   */
 
-object AdobeLivestreamKafka {
+object AdobeLiveStreamKafka {
   val APP_NAME = "adobelivestream.Kafka"
   val APP_VERSION = "1.0"
 

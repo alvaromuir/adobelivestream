@@ -11,15 +11,17 @@
         <module name="core" />
         <module name="ignite" />
         <module name="kafka" />
+        <module name="spark" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="adobe-livestream" target="1.5" />
       <module name="adobelivestream" target="1.5" />
-      <module name="collector" target="1.6" />
+      <module name="collector" target="1.8" />
       <module name="core" target="1.8" />
       <module name="ignite" target="1.8" />
       <module name="kafka" target="1.6" />
+      <module name="spark" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>

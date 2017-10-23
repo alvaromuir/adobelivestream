@@ -27,7 +27,7 @@ object Processor {
     override def receive: PartialFunction[Any, Unit] = {
       case RawHit(event) => println(event.toString)
       // future use for alternative file formats
-      case FilteredHit(event) => println(event)
+      case FilteredHit(event) => println(event.toString)
       case _ =>
     }
   }

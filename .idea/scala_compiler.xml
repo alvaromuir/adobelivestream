@@ -13,5 +13,17 @@
         <parameter value="$PROJECT_DIR$/kafka/target/.scala_dependencies" />
       </parameters>
     </profile>
+    <profile name="Maven 3" modules="ignite">
+      <parameters>
+        <parameter value="-dependencyfile" />
+        <parameter value="$PROJECT_DIR$/ignite/target/.scala_dependencies" />
+      </parameters>
+    </profile>
+    <profile name="Maven 4" modules="spark">
+      <parameters>
+        <parameter value="-dependencyfile" />
+        <parameter value="$PROJECT_DIR$/spark/target/.scala_dependencies" />
+      </parameters>
+    </profile>
   </component>
 </project>

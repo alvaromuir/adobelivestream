@@ -2,7 +2,7 @@ package com.verizon.bdcpe.adobelivestream.collector
 
 import org.scalatest.{FlatSpec, Ignore, Matchers}
 
-/**
+/*
   * Created by Alvaro Muir<alvaro.muir@verizon.com>
   * Verizon Big Data & Cloud Platform Engineering
   * 7/23/17.
