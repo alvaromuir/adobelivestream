@@ -1,11 +1,14 @@
 package com.verizon.bdcpe.adobelivestream.kafka
 
 import com.verizon.bdcpe.adobelivestream.collector.Collector
+import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
 import com.verizon.bdcpe.adobelivestream.collector.Parameters
 import com.verizon.bdcpe.adobelivestream.kafka.KafkaService.{Settings, createProducer}
 import org.apache.kafka.clients.producer.ProducerRecord
+import org.json4s.DefaultFormats
 import org.rogach.scallop.exceptions._
 import org.rogach.scallop.{ScallopConf, ScallopOption}
+import org.json4s.jackson.Serialization.write
 
 import scala.language.postfixOps
 
@@ -54,6 +57,8 @@ object AdobeLiveStreamKafka {
   }
 
   def main(args: Array[String]) {
+    implicit val formats: DefaultFormats = DefaultFormats
+
     val conf = new Configuration(args) {
       override def onError(e: Throwable): Unit = e match {
         case Help("") =>
@@ -92,7 +97,8 @@ object AdobeLiveStreamKafka {
     )
     val producer = createProducer(kafkaSettings)
     def sendToKafka(event: Any): Unit = {
-      producer.send(new ProducerRecord[Integer, String](kafkaSettings.topic, event.toString))
+      val hit = event.asInstanceOf[Hit]
+      producer.send(new ProducerRecord[Integer, String](kafkaSettings.topic, write(hit).toString))
     }
     val collector = new Collector(params)
     collector.start(sendToKafka)

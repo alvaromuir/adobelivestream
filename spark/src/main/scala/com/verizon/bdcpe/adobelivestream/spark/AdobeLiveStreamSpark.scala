@@ -1,7 +1,7 @@
 package com.verizon.bdcpe.adobelivestream.spark
 
 
-import akka.actor.ActorSystem
+import akka.actor.{ActorSystem, Props}
 import akka.stream.ActorMaterializer
 import akka.stream.scaladsl.Source
 import ch.qos.logback.classic
@@ -9,7 +9,10 @@ import ch.qos.logback.classic.{Level, LoggerContext}
 import com.verizon.bdcpe.adobelivestream.collector.Collector
 import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
 import com.verizon.bdcpe.adobelivestream.collector.Parameters
-import com.verizon.bdcpe.adobelivestream.spark.SparkService.Settings
+import com.verizon.bdcpe.adobelivestream.spark.SparkService.{HitActorReceiver, Settings}
+import org.apache.spark.SparkConf
+import org.apache.spark.streaming.akka.AkkaUtils
+import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.json4s.DefaultFormats
 import org.json4s.jackson.Serialization.write
 import org.rogach.scallop.exceptions._
@@ -117,11 +120,48 @@ object AdobeLiveStreamSpark {
     )
 
 
-    def sendToSpark(event: Any): Unit = {
-      val hit = event.asInstanceOf[Hit]
-      Source.single(hit).runForeach(x => println(write(x)))
+//    def sendToSpark(event: Any): Unit = {
+//      val hit = event.asInstanceOf[Hit]
+//      Source.single(hit).runForeach(x => println(write(x)))
+//    }
+//    val collector = new Collector(params)
+//    collector.start(sendToSpark)
+
+
+
+    val Seq(host, port) = args.toSeq
+    val sparkConf = new SparkConf().setAppName("AdobeLiveStream")
+
+    // check Spark configuration for master URL, set it to local if not configured
+    if (!sparkConf.contains("spark.master")) {
+      sparkConf.setMaster("local[2]")
     }
-    val collector = new Collector(params)
-    collector.start(sendToSpark)
+
+    // Create the context and set the batch size
+    val ssc = new StreamingContext(sparkConf, Seconds(2))
+
+    /*
+     * Following is the use of AkkaUtils.createStream to plug in custom actor as receiver
+     *
+     * An important point to note:
+     * Since Actor may exist outside the spark framework, It is thus user's responsibility
+     * to ensure the type safety, i.e type of data received and InputDStream
+     * should be same.
+     *
+     * For example: Both AkkaUtils.createStream and SampleActorReceiver are parameterized
+     * to same type to ensure type safety.
+     */
+    val lines = AkkaUtils.createStream[String](
+      ssc,
+      Props(classOf[HitActorReceiver[String]],
+        s"akka.tcp://test@$host:${port.toInt}/user/FeederActor"),
+      "SampleReceiver")
+
+    // compute wordcount
+    lines.flatMap(_.split("\\s+")).map(x => (x, 1)).reduceByKey(_ + _).print()
+
+    ssc.start()
+    ssc.awaitTermination()
+
   }
 }

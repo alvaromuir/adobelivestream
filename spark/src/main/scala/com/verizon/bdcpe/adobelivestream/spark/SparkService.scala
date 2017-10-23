@@ -1,9 +1,13 @@
 package com.verizon.bdcpe.adobelivestream.spark
 
+import akka.actor.{Actor, ActorRef}
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.akka.ActorReceiver
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.slf4j.{Logger, LoggerFactory}
+
+import scala.collection.mutable
+import scala.util.Random
 
 
 /*
@@ -41,10 +45,55 @@ object SparkService {
   }
 
 
-  class StreamHitActor extends ActorReceiver {
-    override def receive: Receive = {
-      case data: String => store(data)
+  case class SubscribeReceiver(receiverActor: ActorRef)
+  case class UnsubscribeReceiver(receiverActor: ActorRef)
+
+  class FeederActor extends Actor {
+
+    val rand = new Random()
+    val receivers = new mutable.LinkedHashSet[ActorRef]()
+
+    val strings: Array[String] = Array("words ", "may ", "count ")
+
+    def makeMessage(): String = {
+      val x = rand.nextInt(3)
+      strings(x) + strings(2 - x)
+    }
+
+    /*
+     * A thread to generate random messages
+     */
+    new Thread() {
+      override def run() {
+        while (true) {
+          Thread.sleep(500)
+          receivers.foreach(_ ! makeMessage)
+        }
+      }
+    }.start()
+
+    def receive: Receive = {
+      case SubscribeReceiver(receiverActor: ActorRef) =>
+        println(s"received subscribe from ${receiverActor.toString}")
+        receivers += receiverActor
+
+      case UnsubscribeReceiver(receiverActor: ActorRef) =>
+        println(s"received unsubscribe from ${receiverActor.toString}")
+        receivers -= receiverActor
     }
   }
 
+  class HitActorReceiver[T](urlOfPublisher: String) extends ActorReceiver {
+
+    lazy private val remotePublisher = context.actorSelection(urlOfPublisher)
+
+    override def preStart(): Unit = remotePublisher ! SubscribeReceiver(context.self)
+
+    def receive: PartialFunction[Any, Unit] = {
+      case msg => store(msg.asInstanceOf[T])
+    }
+
+    override def postStop(): Unit = remotePublisher ! UnsubscribeReceiver(context.self)
+
+  }
 }
