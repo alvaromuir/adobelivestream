@@ -50,9 +50,9 @@ The essential flags are the application key (-k), application secret(-s), applic
 Please see adobelivestream.core's README for details on required, excluded and filtered flags.
 ##
 
-##test stream consumer##
+## test stream consumer ##
 
-Additionally, this library contains a toy "listner example located in the Consumer.scala source"
+Additionally, this library contains a toy "listener example located in the Consumer.scala source"
 ```
 $java -cp adobelivestream-spark.jar com.verizon.bdcpe.adobelivestream.spark.Consumer
 ```
