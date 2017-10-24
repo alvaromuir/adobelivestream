@@ -64,7 +64,7 @@ Note, this will spin up a spark streaming instance with the following parameters
 * kerberos disabled
 * 2 second batch windows
 
-
+warning: These tests are intended to run as detached jobs. Be sure to check your java processes ($ jps) and ensure you've killed them.
 
 ## Installation
 
