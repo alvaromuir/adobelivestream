@@ -24,13 +24,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 /**
  * Created by Alvaro Muir<alvaro.muir@verizon.com>
  * Verizon Big Data & Cloud Platform Engineering
  * 6/24/17.
  */
-
 public class TokenRequest {
     private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 

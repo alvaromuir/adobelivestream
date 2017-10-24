@@ -167,7 +167,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>com.verizon.bdcpe.adobelivestream.kafka.AdobeLiveStreamSpark</mainClass>
+                            <mainClass>com.verizon.bdcpe.adobelivestream.spark.AdobeLiveStreamSpark</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

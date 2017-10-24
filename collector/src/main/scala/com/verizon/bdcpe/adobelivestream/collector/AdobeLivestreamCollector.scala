@@ -5,7 +5,6 @@ import org.rogach.scallop.exceptions._
 import org.rogach.scallop.{ScallopConf, ScallopOption}
 
 import scala.language.postfixOps
-
 /*
   * Created by Alvaro Muir<alvaro.muir@verizon.com>
   * Verizon Big Data & Cloud Platform Engineering

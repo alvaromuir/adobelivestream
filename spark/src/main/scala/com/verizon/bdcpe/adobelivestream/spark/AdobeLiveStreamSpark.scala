@@ -2,32 +2,27 @@ package com.verizon.bdcpe.adobelivestream.spark
 
 
 import akka.actor.{ActorSystem, Props}
-import akka.stream.ActorMaterializer
-import akka.stream.scaladsl.Source
 import ch.qos.logback.classic
 import ch.qos.logback.classic.{Level, LoggerContext}
+import org.slf4j.{Logger, LoggerFactory}
+import com.typesafe.config.ConfigFactory
 import com.verizon.bdcpe.adobelivestream.collector.Collector
 import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
+import com.verizon.bdcpe.adobelivestream.spark.SparkService.FeederActor
+
+import scala.concurrent.ExecutionContext.Implicits.global
 import com.verizon.bdcpe.adobelivestream.collector.Parameters
-import com.verizon.bdcpe.adobelivestream.spark.SparkService.{HitActorReceiver, Settings}
-import org.apache.spark.SparkConf
-import org.apache.spark.streaming.akka.AkkaUtils
-import org.apache.spark.streaming.{Seconds, StreamingContext}
+import com.verizon.bdcpe.adobelivestream.spark.SparkService.Settings
 import org.json4s.DefaultFormats
-import org.json4s.jackson.Serialization.write
 import org.rogach.scallop.exceptions._
 import org.rogach.scallop.{ScallopConf, ScallopOption}
-import org.slf4j.{Logger, LoggerFactory}
 
-import scala.concurrent.ExecutionContextExecutor
 import scala.language.postfixOps
-
 /*
   * Created by Alvaro Muir<alvaro.muir@verizon.com>
   * Verizon Big Data & Cloud Platform Engineering
   * 10/19/17.
   */
-
 object AdobeLiveStreamSpark {
   val APP_NAME = "adobelivestream.Spark"
   val APP_VERSION = "1.0"
@@ -37,8 +32,10 @@ object AdobeLiveStreamSpark {
   val loggerContext: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
   val sparkLogger: classic.Logger = loggerContext.getLogger("org")
   val akkaLogger: classic.Logger = loggerContext.getLogger("akka")
+  val nettyLogger: classic.Logger = loggerContext.getLogger("io")
   sparkLogger.setLevel(Level.OFF)
   akkaLogger.setLevel(Level.OFF)
+  nettyLogger.setLevel(Level.OFF)
 
   /**
     * Configuration is the overall program setup
@@ -61,6 +58,8 @@ object AdobeLiveStreamSpark {
     val oauthTokenUrl: ScallopOption[String] = opt[String](short = 'o', descr = "[Opt] Adobe OAuth Token Url")
     val sparkMaster: ScallopOption[String] = opt[String](short = 't', descr = "[Opt] Spark master, defaults to local[*]")
     val sparkAppName: ScallopOption[String] = opt[String](short = 'y', descr = "[Opt] Spark application name for history server")
+    val sparkStreamHost: ScallopOption[String] = opt[String](short = 'w', descr = "[Opt] Spark stream listener host")
+    val sparkStreamPort: ScallopOption[Int] = opt[Int](short = 'g', default = Some(9999), descr = "[Opt] Spark stream listener port")
     val kerberosEnabled: ScallopOption[Boolean] = opt[Boolean](short = 'e', descr = "[Opt] Kerberos SASL flag")
     val streamingInterval: ScallopOption[Int] = opt[Int](short = 'v', descr = "[Opt] Spark streaming sec intervals, defaults to 5")
     val proxyHost: ScallopOption[String] = opt[String](short = 'h', descr = "[Opt] Https proxy host")
@@ -74,13 +73,8 @@ object AdobeLiveStreamSpark {
     verify()
   }
 
-
   def main(args: Array[String]) {
-    implicit val system: ActorSystem = ActorSystem("AdobeLiveStream")
-    implicit val materializer: ActorMaterializer = ActorMaterializer()
-    implicit val ec: ExecutionContextExecutor = system.dispatcher
     implicit val formats: DefaultFormats = DefaultFormats
-
 
     val conf = new Configuration(args) {
       override def onError(e: Throwable): Unit = e match {
@@ -113,55 +107,29 @@ object AdobeLiveStreamSpark {
       conf.excluded.toOption, conf.filteredTo.toOption
     )
     val sparkSettings = Settings(
-      conf.sparkMaster.getOrElse("local[*]"),
-      conf.sparkAppName.getOrElse("adobelivestream.spark"),
+      conf.sparkMaster.getOrElse("local[2]"),
+      conf.sparkAppName.getOrElse("AdobeLiveStream"),
+      conf.sparkStreamHost.getOrElse("localhost"),
+      conf.sparkStreamPort.getOrElse(9999),
       conf.kerberosEnabled(),
       conf.streamingInterval.getOrElse(5)
     )
-
-
-//    def sendToSpark(event: Any): Unit = {
-//      val hit = event.asInstanceOf[Hit]
-//      Source.single(hit).runForeach(x => println(write(x)))
-//    }
-//    val collector = new Collector(params)
-//    collector.start(sendToSpark)
-
-
-
-    val Seq(host, port) = args.toSeq
-    val sparkConf = new SparkConf().setAppName("AdobeLiveStream")
-
-    // check Spark configuration for master URL, set it to local if not configured
-    if (!sparkConf.contains("spark.master")) {
-      sparkConf.setMaster("local[2]")
+    val akkaConf = ConfigFactory.parseString(
+      s"""akka.actor.provider = "akka.remote.RemoteActorRefProvider"
+         |akka.remote.enabled-transports = ["akka.remote.netty.tcp"]
+         |akka.remote.netty.tcp.hostname = "${sparkSettings.host}"
+         |akka.remote.netty.tcp.port = ${sparkSettings.port}
+         |""".stripMargin)
+    val actorSystem = ActorSystem(sparkSettings.appName, akkaConf)
+    val feeder = actorSystem.actorOf(Props[FeederActor], "HitFeeder")
+    log.info(s"Feeder started as: $feeder")
+    actorSystem.whenTerminated.foreach { _ => log.info(s"Actor system was shut down") }
+    def sendToSpark(event: Any): Unit = {
+      val hit = event.asInstanceOf[Hit]
+      feeder ! hit
     }
-
-    // Create the context and set the batch size
-    val ssc = new StreamingContext(sparkConf, Seconds(2))
-
-    /*
-     * Following is the use of AkkaUtils.createStream to plug in custom actor as receiver
-     *
-     * An important point to note:
-     * Since Actor may exist outside the spark framework, It is thus user's responsibility
-     * to ensure the type safety, i.e type of data received and InputDStream
-     * should be same.
-     *
-     * For example: Both AkkaUtils.createStream and SampleActorReceiver are parameterized
-     * to same type to ensure type safety.
-     */
-    val lines = AkkaUtils.createStream[String](
-      ssc,
-      Props(classOf[HitActorReceiver[String]],
-        s"akka.tcp://test@$host:${port.toInt}/user/FeederActor"),
-      "SampleReceiver")
-
-    // compute wordcount
-    lines.flatMap(_.split("\\s+")).map(x => (x, 1)).reduceByKey(_ + _).print()
-
-    ssc.start()
-    ssc.awaitTermination()
+    val collector = new Collector(params)
+    collector.start(sendToSpark)
 
   }
 }

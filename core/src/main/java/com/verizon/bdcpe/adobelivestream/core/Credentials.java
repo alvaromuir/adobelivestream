@@ -2,13 +2,11 @@ package com.verizon.bdcpe.adobelivestream.core;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /*
  * Created by Alvaro Muir<alvaro.muir@verizon.com>
  * Verizon Big Data & Cloud Platform Engineering
  * 6/24/17.
  */
-
 public class Credentials {
     private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 

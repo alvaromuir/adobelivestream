@@ -2,9 +2,14 @@ package com.verizon.bdcpe.adobelivestream.collector
 
 import com.verizon.bdcpe.adobelivestream.collector.Collector.system
 import akka.actor.{Actor, ActorRef, Props}
+import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
 import org.slf4j.{Logger, LoggerFactory}
+import org.json4s.DefaultFormats
+import org.json4s.jackson.Serialization.write
 
 object Processor {
+  implicit val formats: DefaultFormats = DefaultFormats
+
   val log: Logger = LoggerFactory.getLogger(getClass.getName)
   val hitActor: ActorRef = system.actorOf(Props[HitActor])
 
@@ -25,15 +30,15 @@ object Processor {
     */
   class HitActor extends Actor {
     override def receive: PartialFunction[Any, Unit] = {
-      case RawHit(event) => println(event.toString)
+      case RawHit(event) => println(event)
       // future use for alternative file formats
-      case FilteredHit(event) => println(event.toString)
+      case FilteredHit(event) => println(event)
       case _ =>
     }
   }
 
-
   def writeToConsole(event: Any) {
-    hitActor ! RawHit(event)
+    val hit = event.asInstanceOf[Hit]
+    hitActor ! RawHit(write(hit))
   }
 }

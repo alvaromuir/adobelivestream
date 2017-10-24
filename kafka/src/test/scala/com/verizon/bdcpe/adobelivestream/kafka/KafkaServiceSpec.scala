@@ -1,13 +1,13 @@
 package com.verizon.bdcpe.adobelivestream.kafka
 
-import org.scalatest.{FlatSpec, Matchers}
+import org.scalatest.{FlatSpec, Ignore, Matchers}
 
-/**
+/*
   * Created by Alvaro Muir<alvaro.muir@verizon.com>
   * Verizon Big Data & Cloud Platform Engineering
   * 10/6/17.
   */
-
+@Ignore
 class KafkaServiceSpec extends FlatSpec with Matchers {
   // be sure to change to adjusts your Constants.scala file:
   val kafkaBrokers: String = Constants.KAFKA_BROKERS

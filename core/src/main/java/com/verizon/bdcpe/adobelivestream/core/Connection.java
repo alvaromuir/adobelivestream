@@ -23,15 +23,15 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 /*
  * Created by Alvaro Muir<alvaro.muir@verizon.com>
  * Verizon Big Data & Cloud Platform Engineering
  * 6/24/17.
  */
 
-
-// low-level class that returns both a closable client as well as a closeable response
+/**
+ * Connection is a low-level class that returns both a closable client as well as a closeable response
+ */
 public class Connection implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(new Object() { }.getClass().getEnclosingClass());
 

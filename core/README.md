@@ -26,7 +26,6 @@ usage: adobelivestream
  -p, --proxyPassword <arg>        [opt] proxy password, if required
 
 
-
 ```
 At the very least, the clientKey (-k), clientSecret(-s), applicationId (-i) and connectionsMax (-m) are required.
 For brevity, a slim jar is also built by default (e.g. adobelivestream-core-\<VERSION\>.jar)

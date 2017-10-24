@@ -14,23 +14,30 @@ v 1.2 is processor output agnostic -- meaning while the collector will still gra
 The standalone jar is built by default. Running with the --help flag provides instructions on parameters:
 
 ```
-$java -jar adobelivestream-collector-1.2.jar --help
-    -k, --app-key  <arg>             Adobe application key
-    -s, --app-secret  <arg>          Adobe application secret
-    -i, --app-id  <arg>              Adobe application ID
-    -m, --connections-max  <arg>     max concurrent connections
-    -o, --oauth-token-url  <arg>     [Opt] Adobe OAuth Token Url
-    -h, --proxy-host  <arg>          [Opt] Https proxy host
-    -n, --proxy-port-number  <arg>   [Opt] Https proxy port
-    -u, --proxy-username  <arg>      [Opt] Https proxy username
-    -p, --proxy-password  <arg>      [Opt] Https proxy password
-    -l, --event-limit  <arg>         [Opt] Livestream retrieved events limit
-    -r, --required  <arg>            [Opt] Required fields, comma separated
-    -x, --excluded  <arg>            [Opt] Excluded fields, comma separated
-    -f, --filtered-to  <arg>         [Opt] Fields filtered to, comma separated
-    
-        --help                       Show help message
-        --version                    Show version of this program
+$java -jar adobelivestream-collector-<VERSION>.jar --help
+
+Usage: adobelivestream.collector -k <appKey> -s <appSecret> -i <appId> -m <maxConnections> ... [OPTIONS]
+adobelivestream.Collector retrieves real-time event data from Adobe Analytics.
+Options:
+
+  -k, --app-key  <arg>             Adobe application key
+  -s, --app-secret  <arg>          Adobe application secret
+  -i, --app-id  <arg>              Adobe application ID
+  -m, --connections-max  <arg>     max concurrent connections
+  -o, --oauth-token-url  <arg>     [Opt] Adobe OAuth Token Url
+  -h, --proxy-host  <arg>          [Opt] Https proxy host
+  -n, --proxy-port-number  <arg>   [Opt] Https proxy port
+  -u, --proxy-username  <arg>      [Opt] Https proxy username
+  -p, --proxy-password  <arg>      [Opt] Https proxy password
+  -l, --event-limit  <arg>         [Opt] Livestream retrieved events limit
+  -r, --required  <arg>            [Opt] Required fields, comma separate
+  -x, --excluded  <arg>            [Opt] Excluded fields, comma separated
+  -f, --filtered-to  <arg>         [Opt] Fields filtered to, comma separated
+
+      --help                       Show help message
+      --version                    Show version of this program
+
+README - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector
 ```
 The essential flags are the application key (-k), application secret(-s), application ID (-a), and maximum connections (-m).
 

@@ -12,8 +12,11 @@ import org.json4s.{DefaultFormats, Extraction, JObject}
 import org.json4s.jackson.JsonMethods.{compact, parse, render}
 import org.json4s.JsonDSL._
 import org.slf4j.{Logger, LoggerFactory}
-
-
+/*
+  * Created by Alvaro Muir<alvaro.muir@verizon.com>
+  * Verizon Big Data & Cloud Platform Engineering
+  * 7/23/17.
+  */
 /** Returns parameter object sets up the stream on both client and server side
   *
   * @param appKey Adobe application key

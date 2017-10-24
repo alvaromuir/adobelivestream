@@ -5,19 +5,17 @@ import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
 import com.verizon.bdcpe.adobelivestream.collector.Parameters
 import com.verizon.bdcpe.adobelivestream.kafka.KafkaService.{Settings, createProducer}
 import org.apache.kafka.clients.producer.ProducerRecord
-import org.json4s.DefaultFormats
 import org.rogach.scallop.exceptions._
 import org.rogach.scallop.{ScallopConf, ScallopOption}
+import org.json4s.DefaultFormats
 import org.json4s.jackson.Serialization.write
 
 import scala.language.postfixOps
-
 /*
   * Created by Alvaro Muir<alvaro.muir@verizon.com>
   * Verizon Big Data & Cloud Platform Engineering
   * 10/9/17.
   */
-
 object AdobeLiveStreamKafka {
   val APP_NAME = "adobelivestream.Kafka"
   val APP_VERSION = "1.0"
