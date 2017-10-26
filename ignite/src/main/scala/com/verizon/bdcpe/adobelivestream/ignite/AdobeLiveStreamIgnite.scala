@@ -107,7 +107,7 @@ object AdobeLiveStreamIgnite {
     def sendToIgnite(event: Any): Unit = {
       implicit val formats: DefaultFormats = DefaultFormats
       val hit = event.asInstanceOf[Hit]
-      val cacheEntry:CacheEntry = CacheEntry(hit.hitIdHigh + hit.hitIdLow, hit.timeGMT)
+      val cacheEntry:CacheEntry = CacheEntry(hit.hitIdHigh.get + hit.hitIdLow.get, hit.timeGMT.get)
       cache.put(cacheEntry.sessionId, cacheEntry.timeGMT)
 
       val qry:ContinuousQuery[Double, Double] = new ContinuousQuery[Double, Double]()

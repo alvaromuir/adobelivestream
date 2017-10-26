@@ -51,7 +51,5 @@ object KafkaService {
     }
     props
   }
-
   //  ToDo: write methods to check if kafka broker is live. Probably need to do this via Zookeeper?
-
 }

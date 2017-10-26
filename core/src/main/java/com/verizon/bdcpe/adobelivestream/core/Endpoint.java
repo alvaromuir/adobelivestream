@@ -30,13 +30,11 @@ public class Endpoint {
         log.info("Endpoint created: " + this.string());
     }
 
-
     public static class Builder {
         String streamDomain = Constants.STREAM_HOST;
         String applicationId;
         Integer maxConnections;
         String streamReset;
-
 
         public Builder(String applicationId, Integer maxConnections) {
             this.applicationId = applicationId;

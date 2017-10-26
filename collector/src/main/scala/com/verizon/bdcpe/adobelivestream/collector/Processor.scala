@@ -30,6 +30,7 @@ object Processor {
     */
   class HitActor extends Actor {
     override def receive: PartialFunction[Any, Unit] = {
+      // future use for raw file formats
       case RawHit(event) => println(event)
       // future use for alternative file formats
       case FilteredHit(event) => println(event)

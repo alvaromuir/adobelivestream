@@ -39,4 +39,3 @@ object IgniteService {
     ignite.getOrCreateCache(settings.cacheName)
   }
 }
-  

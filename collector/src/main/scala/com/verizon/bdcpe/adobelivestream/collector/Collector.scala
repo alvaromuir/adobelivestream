@@ -55,7 +55,6 @@ class Collector(params: Parameters) {
   if (params.proxyPassword.isDefined) credentials.proxyPassword(params.proxyPassword.get)
 
   val creds:Credentials = credentials.build()
-
   val events: LinkedBlockingQueue[String] = new LinkedBlockingQueue[String]()
   val connection: Connection = new Connection.Builder(
     creds,
@@ -103,9 +102,9 @@ object Collector {
       * Filter returns a filtered string representation of a hit
       * @param hit is a Hit object
       */
-    def filter(hit: Hit): String = {
+    def filter(hit: Hit): Hit = {
       val filters = config.filters.get.split(",").map(_.trim).toList
-      var json: JObject = ("sessionId" -> (hit.hitIdHigh + hit.hitIdLow)) ~ ("visitorId" -> (hit.visIdHigh + hit.visIdLow)) ~ ("timeGMT" -> hit.timeGMT)
+      var json: JObject = ("sessionId" -> (hit.hitIdHigh.get + hit.hitIdLow.get)) ~ ("visitorId" -> (hit.visIdHigh.get + hit.visIdLow.get)) ~ ("timeGMT" -> hit.timeGMT)
 
       filters.foreach {
         case x if !x.toLowerCase.startsWith("prop") && !x.toLowerCase.startsWith("evar") && !x.toLowerCase.startsWith("event") =>
@@ -129,7 +128,8 @@ object Collector {
 
         case _ =>
       }
-      compact(render(json))
+
+      json.extract[Hit]
     }
 
     /**
@@ -201,7 +201,7 @@ object Collector {
         while(limit > 0) try {
           val event = parse(queue.take).extract[Hit]
           if(event != null) {
-            if (filteredTo.isDefined) process(fn, FilteredHit(filter(event)))
+            if (filteredTo.isDefined) process(fn, filter(event))
             else process(fn, event)
             limit -= 1
           }
@@ -230,10 +230,4 @@ object Collector {
       collector.interrupt()
     }
   }
-
-
 }
-
-
-
-

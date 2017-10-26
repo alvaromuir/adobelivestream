@@ -44,8 +44,6 @@ object AdobeLivestreamCollector {
     val excluded: ScallopOption[String] = opt[String](short = 'x', descr = "[Opt] Excluded fields, comma separated")
     val filteredTo:  ScallopOption[String] = opt[String](short = 'f', descr = "[Opt] Fields filtered to, comma separated")
     verify()
-
-
   }
 
   def main(args: Array[String]) {
