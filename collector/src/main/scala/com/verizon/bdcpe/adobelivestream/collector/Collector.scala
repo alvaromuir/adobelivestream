@@ -9,7 +9,7 @@ import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
 import com.verizon.bdcpe.adobelivestream.collector.Processor.FilteredHit
 import com.verizon.bdcpe.adobelivestream.core.{Connection, Credentials, Endpoint, TokenRequest}
 import org.json4s.{DefaultFormats, Extraction, JObject}
-import org.json4s.jackson.JsonMethods.{compact, parse, render}
+import org.json4s.jackson.JsonMethods.parse
 import org.json4s.JsonDSL._
 import org.slf4j.{Logger, LoggerFactory}
 /*

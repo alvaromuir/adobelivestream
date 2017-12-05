@@ -25,7 +25,7 @@ object SparkService {
     * @param kerberosEnabled Boolean [Opt] SASL flag, omit for 'false'
     * @param streamingInterval Int [Opt] spark streaming batch size
     */
-  case class Settings(master: String, appName: String = "AdobeLiveStream", host: String = "127.0.0.1", port: Int = 9999,
+  case class Settings(master: String = "localhost[2]", appName: String = "AdobeLiveStream", host: String = "127.0.0.1", port: Int = 9999,
                       kerberosEnabled: Boolean, streamingInterval: Int)
 
   /**

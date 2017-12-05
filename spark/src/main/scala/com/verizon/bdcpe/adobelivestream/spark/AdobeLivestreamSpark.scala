@@ -23,7 +23,7 @@ import scala.language.postfixOps
   * Verizon Big Data & Cloud Platform Engineering
   * 10/19/17.
   */
-object AdobeLiveStreamSpark {
+object AdobeLivestreamSpark {
   val APP_NAME = "adobelivestream.Spark"
   val APP_VERSION = "1.0"
 

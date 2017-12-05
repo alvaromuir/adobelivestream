@@ -1,5 +1,7 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>adobelivestream</artifactId>
         <groupId>com.verizon.bdcpe</groupId>
@@ -8,8 +10,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>collector</artifactId>
     <groupId>com.verizon.bdcpe.adobelivestream</groupId>
+    <artifactId>collector</artifactId>
     <version>1.2</version>
     <packaging>jar</packaging>
     <name>adobelivestream-${project.artifactId}</name>
@@ -31,11 +33,6 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>${scala.version}</version>
-        </dependency>
         <dependency>
             <groupId>com.verizon.bdcpe.adobelivestream</groupId>
             <artifactId>core</artifactId>
@@ -147,7 +144,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-                    <!-- disable surefire fore scalatest-->
+                    <!-- disable surefire for scalatest-->
                     <skipTests>true</skipTests>
                     <useFile>false</useFile>
                     <disableXmlReport>true</disableXmlReport>

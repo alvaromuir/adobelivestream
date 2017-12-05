@@ -16,7 +16,7 @@ import scala.language.postfixOps
   * Verizon Big Data & Cloud Platform Engineering
   * 10/9/17.
   */
-object AdobeLiveStreamKafka {
+object AdobeLivestreamKafka {
   val APP_NAME = "adobelivestream.Kafka"
   val APP_VERSION = "1.0"
 
@@ -96,7 +96,7 @@ object AdobeLiveStreamKafka {
     val producer = createProducer(kafkaSettings)
     def sendToKafka(event: Any): Unit = {
       val hit = event.asInstanceOf[Hit]
-      producer.send(new ProducerRecord[Integer, String](kafkaSettings.topic, write(hit).toString))
+      producer.send(new ProducerRecord[Long, String](kafkaSettings.topic, write(hit).toString))
     }
     val collector = new Collector(params)
     collector.start(sendToKafka)

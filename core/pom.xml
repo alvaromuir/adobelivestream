@@ -1,4 +1,6 @@
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>adobelivestream</artifactId>
@@ -8,8 +10,8 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>core</artifactId>
     <groupId>com.verizon.bdcpe.adobelivestream</groupId>
+    <artifactId>core</artifactId>
     <version>1.3</version>
     <packaging>jar</packaging>
     <name>adobelivestream-${project.artifactId}</name>
@@ -96,7 +98,7 @@
                     <finalName>${project.name}-${project.version}</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>com.verizon.bdcpe.adobelivestream.core.AdobeLiveStreamCore</mainClass>
+                            <mainClass>com.verizon.bdcpe.adobelivestream.core.AdobeLivestreamCore</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -123,7 +125,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>com.verizon.bdcpe.adobelivestream.core.AdobeLiveStreamCore</mainClass>
+                            <mainClass>com.verizon.bdcpe.adobelivestream.core.AdobeLivestreamCore</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

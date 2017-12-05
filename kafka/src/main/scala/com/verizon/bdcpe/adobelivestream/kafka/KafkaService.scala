@@ -25,11 +25,11 @@ object KafkaService {
     * @param settings Settings object
     * @return kafka producer with integer keys and string values
     */
-  def createProducer(settings: Settings): KafkaProducer[Integer, String] = {
+  def createProducer(settings: Settings): KafkaProducer[Long, String] = {
     log.info(s"connecting to kafka with the following settings: {brokers: ${settings.brokers}, " +
       s"topic: ${settings.topic}, clientId: ${settings.clientId}, kerberosEnabled: ${settings.kerberosEnabled}}")
     //  ToDo: pass in logging directive from main
-    new KafkaProducer[Integer,String](generateProps(settings.brokers, settings.clientId.getOrElse(""), settings.kerberosEnabled))
+    new KafkaProducer[Long,String](generateProps(settings.brokers, settings.clientId.getOrElse(""), settings.kerberosEnabled))
   }
 
   def generateProps(servers: String, clientID: String, secureTransport: Boolean = false): java.util.Properties = {

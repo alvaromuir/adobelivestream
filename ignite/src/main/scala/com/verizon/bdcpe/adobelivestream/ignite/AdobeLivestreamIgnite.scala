@@ -15,7 +15,6 @@ import com.verizon.bdcpe.adobelivestream.ignite.IgniteService.{Settings, createC
 import org.apache.ignite.cache.query.{ContinuousQuery, ScanQuery}
 import org.apache.ignite.lang.IgniteBiPredicate
 import org.json4s._
-import org.json4s.jackson.JsonMethods._
 import org.rogach.scallop.exceptions._
 import org.rogach.scallop.{ScallopConf, ScallopOption}
 import org.slf4j.{Logger, LoggerFactory}
@@ -28,7 +27,7 @@ import scala.language.postfixOps
   * 10/17/17.
   */
 
-object AdobeLiveStreamIgnite {
+object AdobeLivestreamIgnite {
   val log: Logger = LoggerFactory.getLogger(getClass.getName)
   val APP_NAME = "adobelivestream.Ignite"
   val APP_VERSION = "1.0"

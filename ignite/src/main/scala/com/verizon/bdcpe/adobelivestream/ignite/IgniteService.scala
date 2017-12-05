@@ -1,12 +1,5 @@
 package com.verizon.bdcpe.adobelivestream.ignite
 
-
-
-import javax.cache.configuration.Factory
-import javax.cache.event.{CacheEntryEvent, CacheEntryEventFilter, CacheEntryUpdatedListener}
-
-import org.apache.ignite.cache.query.{ContinuousQuery, ScanQuery}
-import org.apache.ignite.lang.IgniteBiPredicate
 import org.apache.ignite.{Ignite, IgniteCache, Ignition}
 import org.slf4j
 import org.slf4j.LoggerFactory

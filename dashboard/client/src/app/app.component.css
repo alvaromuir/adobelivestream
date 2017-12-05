@@ -1,0 +1,103 @@
+.test-border {
+  border: 1px solid #80c846;
+}
+
+/*font-family: 'Dosis', sans-serif;*/
+/*font-family: 'Ruda', sans-serif;*/
+/*font-family: 'Chivo', sans-serif;*/
+
+
+.background-shade {
+  background-color: #f5f4f5;
+}
+
+.padded-content {
+  float: left;
+  padding: 2em;
+  text-align: left;
+}
+
+.pulled-right-border {
+  margin-left: -1px;
+  border-right: 1px solid #E9E9E9;
+}
+
+
+.title {
+  font-family: 'Ruda', sans-serif;
+  font-size: 1.2em;
+}
+.border-bottom {
+  border: 1px solid #E9E9E9;
+}
+
+.inner-container {
+  background-color: #FFF;
+  margin: 5px 0 0 0;
+}
+
+ul.container-nav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  border-bottom: 1px solid #E9E9E9;
+}
+
+ul.container-nav li {
+  display: block;
+  float: left;
+  padding: 8px 16px;
+}
+
+.selected-view {
+  background-color: #F9F9F9;
+  border-top: 3px solid #923223;
+}
+
+.large-metric {
+  font-size: 1.3em;
+  float: left;
+  font-family: 'Dosis', sans-serif;
+  font-weight: 700;
+}
+
+.metric-label {
+  font-size: .8em;
+  float: left;
+  clear: left;
+  margin: 2px 0 0 0;
+  font-family: 'Ruda', sans-serif;
+  font-weight: 700;
+}
+
+.metric-description {
+  font-size: .7em;
+  float: left;
+  clear: left;
+  margin: 5px 0 0 0;
+  font-family: 'Chivo', sans-serif;
+}
+
+.green {
+  color: #1a6f27;
+}
+
+.red {
+  color: #923223;
+}
+
+
+.viz-header {
+  padding: 5px;
+  margin: 5px 0 0 0;
+  float: left;
+  clear: left;
+  font-size: .7em;
+
+}
+
+.dates-selected {
+  float: left;
+  color: #888888;
+}

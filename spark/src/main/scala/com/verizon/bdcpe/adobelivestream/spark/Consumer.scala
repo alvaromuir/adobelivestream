@@ -37,7 +37,6 @@ object Consumer {
       Props(classOf[StreamActorReceiver[String]],
         s"akka.tcp://${sparkSettings.appName}@${sparkSettings.host}:${sparkSettings.port}/user/HitFeeder"),
       "StreamActorReceiver")
-//    hits.flatMap(_.split("\\s+")).map(x => (x, 1)).reduceByKey(_ + _).print()
     hits.count().print()
 
     ssc.start()
