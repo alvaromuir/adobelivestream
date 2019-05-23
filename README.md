@@ -8,6 +8,7 @@ Built with the following components:
  * kafka, an API built on top of collector
  * spark, an API built on top of collector
  * ignite, an API built on top of collector
+ * dashboard, an API built on top of collector
 
 See individual module README's for details.
 
