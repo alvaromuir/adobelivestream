@@ -1,13 +1,13 @@
 # adobelivestream
 ## v1.0
 
-adobelivestream Modular refactor of [adobe-live-streamer](https://onestash.verizon.com/users/v603497/repos/adobe-live-streamer)
-
 Built with the following components:
 
  * core
  * collector, an API built on top of core
  * kafka, an API built on top of collector
+ * spark, an API built on top of collector
+ * ignite, an API built on top of collector
 
 See individual module README's for details.
 
