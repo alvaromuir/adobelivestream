@@ -1,35 +1,56 @@
 package controllers
 
+import java.time.{Instant, LocalDateTime, ZoneId}
 import javax.inject._
 
 import play.api.mvc._
-
 import akka.actor.ActorSystem
-import akka.kafka.{AutoSubscription, Subscriptions}
-import akka.kafka.scaladsl.Consumer
 import akka.stream.Materializer
-import akka.stream.scaladsl.{Flow, Sink, Source}
-
-import org.apache.kafka.clients.consumer.ConsumerRecord
-import services.KafkaService
-import services.DbService
+import services.{CachedHit, IgniteService, KafkaService}
+import com.verizon.bdcpe.adobelivestream.collector.HitModel.Hit
+import org.apache.ignite.IgniteCache
+import org.json4s.DefaultFormats
+import org.json4s.jackson.JsonMethods
+import org.json4s.jackson.Serialization.write
 
 import scala.concurrent.Future
 
 
-@Singleton
-class HomeController @Inject()(cc: ControllerComponents, kafkaService: KafkaService) (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc)  {
 
-  def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+@Singleton
+class HomeController @Inject()(cc: ControllerComponents,
+                               kafkaService: KafkaService,
+                               igniteService: IgniteService)
+                              (implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc)  {
+
+
+  val cache: IgniteCache[Double, CachedHit] = igniteService.cache
+
+  implicit val formats: DefaultFormats.type = DefaultFormats
+
+  kafkaService.source.runForeach(x => {
+    val hit = JsonMethods.parse(x.value()).extract[Hit]
+    val sessionId = hit.hitIdHigh.get + hit.hitIdLow.get
+    val cachedHit = CachedHit(hit.visIdHigh.get + hit.visIdLow.get, hit.timeGMT.get, hit)
+
+    if(! cache.replaceAsync(sessionId, cachedHit).get) cache.put(sessionId, cachedHit)
+    val zone = ZoneId.systemDefault()
+    val timeStamp = Instant.now.minusSeconds(1800)
+    val timeStampLocal = LocalDateTime.ofInstant(timeStamp, zone)
+    val timeGMT = cachedHit.details.timeGMT.get
+    val timeGMTLocal = Instant.ofEpochSecond(timeGMT.toLong).atZone(ZoneId.systemDefault()).toLocalDateTime()
+
+    println(s"%21s %20s %20s %5s".format(sessionId, timeGMTLocal, timeStampLocal, timeGMT.toLong > timeStamp.getEpochSecond))
+
+//    println(f"$sessionId $timeGMTLocal%20s $timeStampLocal%20s ${timeGMT.toLong > timeStamp.getEpochSecond}")
+  })
+
+  def socket: WebSocket = WebSocket.acceptOrResult[Any, String] { _ =>
+    Future.successful(Right(kafkaService.flow))
   }
 
-  val subscription: AutoSubscription = Subscriptions.topics("da_dev_rts_digital_adobe")
-  val kafkaSource: Source[ConsumerRecord[Array[Byte], String],Consumer.Control] = Consumer.plainSource(kafkaService.consumerSettings, subscription)
-
-  def socket = WebSocket.acceptOrResult[Any, String] { _ =>
-    val flow = Flow.fromSinkAndSource(Sink.ignore, kafkaSource.map(_.value))
-    Future.successful(Right(flow))
+  def index: Action[AnyContent] = Action {
+    Ok(views.html.index(s"cache is running, with a size of ${cache.sizeLong()}"))
   }
 
 }

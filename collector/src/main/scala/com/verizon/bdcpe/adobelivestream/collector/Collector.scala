@@ -69,7 +69,6 @@ class Collector(params: Parameters) {
   def start(fn: (Any) => Unit): Unit = { new Flow(connection, events, streamConfig).start(fn: (Any) => Unit) }
 }
 
-
 object Collector {
   implicit val system: ActorSystem = ActorSystem("AdobeLivestreamSystem")
   implicit val materializer: ActorMaterializer = ActorMaterializer()

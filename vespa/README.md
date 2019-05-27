@@ -1,7 +1,7 @@
 ## Synopsis
 #### v 1.0
 
-adobelivestream.vespa is vespa-based stream processing middleware for Adobe's
+adobelivestream.spark is spark-based stream processing middleware for Adobe's
 [Analytics Live Streaming](https://marketing.adobe.com/developer/documentation/analytics-live-stream/overview-1)
 built on top of the [adobelivestream-collector API](https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector),
 with the option to run as command-line application. As with the collector, required parameters are passed in via parameters
@@ -33,7 +33,13 @@ Options:
   -f, --filtered-to  <arg>          [Opt] Fields filtered to, comma separated
 
   -e, --kerberos-enabled            [Opt] Kerberos SASL flag
-
+  -y, --spark-app-name  <arg>       [Opt] Spark application name for history
+                                    server
+  -t, --spark-master  <arg>         [Opt] Spark master, defaults to local[*]
+  -w, --spark-stream-host  <arg>    [Opt] Spark stream listener host
+  -g, --spark-stream-port  <arg>    [Opt] Spark stream listener port
+  -v, --streaming-interval  <arg>   [Opt] Spark streaming sec intervals,
+                                    defaults to 5
       --help                        Show help message
       --version                     Show version of this program
 

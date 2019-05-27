@@ -5,3 +5,36 @@
   margin-right: 2px;
   background-color: lightslategray;
 }
+
+.hit-string {
+  height: 10px;
+  float: left;
+  clear:both;
+  font-size: .3em;
+  color: #1a6f27;
+}
+
+
+.graph .axis {
+  stroke-width: 1;
+}
+
+.graph .axis .tick line {
+  stroke: black;
+}
+
+.graph .axis .tick text {
+  fill: black;
+  font-size: 0.7em;
+}
+
+.graph .axis .domain {
+  fill: none;
+  stroke: black;
+}
+
+.graph .group {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5;
+}

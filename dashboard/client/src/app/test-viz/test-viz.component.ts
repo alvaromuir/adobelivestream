@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+import {Component, OnInit, OnChanges, ViewChild, ElementRef, ViewEncapsulation, Input, Inject} from '@angular/core';
 import * as d3 from 'd3';
 import {LiveStreamService} from "../livestream.service";
 import {WebSocketService} from "../websocket.service";
@@ -8,17 +8,21 @@ import {WebSocketService} from "../websocket.service";
   templateUrl: './test-viz.component.html',
   styleUrls: ['./test-viz.component.css'],
   encapsulation: ViewEncapsulation.None,
-  providers: [ WebSocketService, LiveStreamService ]
+  providers: [ WebSocketService, {provide: 'stream', useClass: LiveStreamService} ]
 })
 export class TestVizComponent implements OnInit, OnChanges {
   @ViewChild('chart') private chartContainer: ElementRef;
 
-  constructor(private liveStreamService: LiveStreamService) {
-    liveStreamService.messages.subscribe(msg => {
-        console.log(msg.message['browser']);
+  public hit = "loading  . . .";
+
+  constructor(@Inject('stream') private stream) {
+    stream.messages.subscribe(msg => {
+        // console.log(msg.message['browser']);
+      // this.hit = msg.message['browser'];
     });
 
-    liveStreamService.messages.unsubscribe()
+
+    stream.messages.unsubscribe()
   }
 
   ngOnInit() {
@@ -28,15 +32,19 @@ export class TestVizComponent implements OnInit, OnChanges {
 
 
   createChart() {
-    var dataset = [ 8, 10, 12, 9, 7, 8, 10 ];
+    // var dataset = [ 8, 10, 12, 9, 7, 8, 10 ];
+    //
+    // d3.select('.test-viz').selectAll('#chart')
+    //   .data(dataset)
+    //   .enter()
+    //   .append('div')
+    //   .attr('class', 'bar')
+    //   .style('height', function (d) {
+    //     return d * 5 + 'px';
+    //   });
 
-    d3.select('.test-viz').selectAll('#chart')
-      .data(dataset)
-      .enter()
-      .append('div')
-      .attr('class', 'bar')
-      .style('height', function (d) {
-        return d * 5 + 'px';
-      });
+
+
+
   }
 }

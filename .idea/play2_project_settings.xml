@@ -13,6 +13,7 @@
         <entry key="dashboard">
           <value>
             <ProjectSettingsEntry>
+              <option name="sourceDir" value="$PROJECT_DIR$/dashboard/app" />
               <option name="confDir" value="$PROJECT_DIR$/dashboard/app" />
               <option name="templateImports">
                 <list>
@@ -43,7 +44,7 @@
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
-              <option name="sourceDir" value="$PROJECT_DIR$/dashboard/app" />
+              <option name="confDir" value="$PROJECT_DIR$/dashboard/app" />
               <option name="templateImports">
                 <list>
                   <option value="_root_.play.twirl.api.TwirlFeatureImports._" />
