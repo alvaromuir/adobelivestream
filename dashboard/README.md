@@ -3,7 +3,7 @@
 
 adobelivestream.dashboard is an alpha-phase dashboard enabled via the Play! framework for Adobe's
 [Analytics Live Streaming](https://marketing.adobe.com/developer/documentation/analytics-live-stream/overview-1)
-built on top of the [adobelivestream-collector API](https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector),
+built on top of the [adobelivestream-collector API](https://github.com/alvaromuir//adobelivestream/browse/collector),
 with the option to run as command-line application. The client-facing UI is developed with Angular 4.
 
 **NOTE:** This project is in alpha release, and is developed in two parts for now: A server which ingests kafka messages

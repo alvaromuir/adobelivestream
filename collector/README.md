@@ -3,7 +3,7 @@
 
 adobelivestream.collector is a standalone collector for Adobe's
 [Analytics Live Streaming](https://marketing.adobe.com/developer/documentation/analytics-live-stream/overview-1)
-built on top of the [adobelivestream-core API](https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/core), with the option to run as command-line application.
+built on top of the [adobelivestream-core API](https://github.com/alvaromuir/adobelivestream/browse/core), with the option to run as command-line application.
 As with the core, required parameters are passed in via parameters with additional functionality added to filter the returned json as well as limit the number of results.
 
 ###### whats new, 10.6.17
@@ -37,7 +37,7 @@ Options:
       --help                       Show help message
       --version                    Show version of this program
 
-README - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector
+README - https://github.com/alvaromuir/adobelivestream/browse/collector
 ```
 The essential flags are the application key (-k), application secret(-s), application ID (-a), and maximum connections (-m).
 

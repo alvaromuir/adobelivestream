@@ -3,7 +3,7 @@
 
 adobelivestream.ignite is ignite-based in-memory key-value store middleware for Adobe's
 [Analytics Live Streaming](https://marketing.adobe.com/developer/documentation/analytics-live-stream/overview-1)
-built on top of the [adobelivestream-collector API](https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector),
+built on top of the [adobelivestream-collector API](https://github.com/alvaromuir//adobelivestream/browse/collector),
 with the option to run as command-line application. As with the collector, required parameters are passed in via parameters 
 with additional functionality added to filter the returned json as well as limit the number of results.
 
@@ -38,7 +38,7 @@ Options:
       --help                          Show help message
       --version                       Show version of this program
 
-README - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/ignite
+README - https://github.com/alvaromuir//adobelivestream/browse/ignite
 ```
 At the very least, the clientKey (-k), clientSecret(-s), applicationId (-i) and connectionsMax (-m) are required.
 For brevity, a slim jar is also built by default (e.g. adobelivestream-core-\<VERSION\>.jar)

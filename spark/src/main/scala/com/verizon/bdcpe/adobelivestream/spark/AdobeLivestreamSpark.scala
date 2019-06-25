@@ -50,7 +50,7 @@ object AdobeLivestreamSpark {
              |adobelivestream.Spark sends real-time event data from Adobe Analytics to a Spark cluster.
              |Options:
              |""".stripMargin)
-    footer("\nREADME - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/spark")
+    footer("\nREADME - https://github.com/alvaromuir//adobelivestream/browse/spark")
     val appKey: ScallopOption[String] = opt[String](short = 'k', descr = "Adobe application key", required = true)
     val appSecret: ScallopOption[String] = opt[String](short = 's', descr = "Adobe application secret", required = true)
     val appId: ScallopOption[String] = opt[String](short = 'i', descr = "Adobe application ID", required = true)

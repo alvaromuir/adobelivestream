@@ -28,7 +28,7 @@ object AdobeLivestreamCollector {
              |adobelivestream.Collector retrieves real-time event data from Adobe Analytics.
              |Options:
              |""".stripMargin)
-    footer("\nREADME - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector")
+    footer("\nREADME - https://github.com/alvaromuir/adobelivestream/browse/collector")
 
     val appKey: ScallopOption[String] = opt[String](short = 'k', descr = "Adobe application key", required = true)
     val appSecret: ScallopOption[String] = opt[String](short = 's', descr = "Adobe application secret", required = true)

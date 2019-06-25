@@ -3,7 +3,7 @@
 
 adobelivestream.spark is spark-based stream processing middleware for Adobe's
 [Analytics Live Streaming](https://marketing.adobe.com/developer/documentation/analytics-live-stream/overview-1)
-built on top of the [adobelivestream-collector API](https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/collector),
+built on top of the [adobelivestream-collector API](https://github.com/alvaromuir/adobelivestream/browse/collector),
 with the option to run as command-line application. As with the collector, required parameters are passed in via parameters
 with additional functionality added to filter the returned json as well as limit the number of results.
 
@@ -43,7 +43,7 @@ Options:
       --help                        Show help message
       --version                     Show version of this program
 
-README - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/spark
+README - https://github.com/alvaromuir/adobelivestream/browse/spark
 ```
 The essential flags are the application key (-k), application secret(-s), application ID (-a) and maximum connections (-m).
 

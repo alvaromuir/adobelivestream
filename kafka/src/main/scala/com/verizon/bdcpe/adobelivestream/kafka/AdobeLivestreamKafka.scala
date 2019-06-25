@@ -33,7 +33,7 @@ object AdobeLivestreamKafka {
              |adobelivestream.Kafka sends real-time event data from Adobe Analytics to a Kafka quorum.
              |Options:
              |""".stripMargin)
-    footer("\nREADME - https://onestash.verizon.com/users/v603497/repos/adobelivestream/browse/kafka")
+    footer("\nREADME - https://github.com/alvaromuir/adobelivestream/browse/kafka")
     val appKey: ScallopOption[String] = opt[String](short = 'k', descr = "Adobe application key", required = true)
     val appSecret: ScallopOption[String] = opt[String](short = 's', descr = "Adobe application secret", required = true)
     val appId: ScallopOption[String] = opt[String](short = 'i', descr = "Adobe application ID", required = true)

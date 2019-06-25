@@ -15,7 +15,7 @@
     <version>1.3</version>
     <packaging>jar</packaging>
     <name>adobelivestream-${project.artifactId}</name>
-    <url>https://oneconfluence.verizon.com/display/ADE/Applied+Data+Engineering+Home</url>
+    <url></url>
 
     <description>
         adobelivestream-core provides both a low-level and quick-start API for collecting Streaming data from Adobe's

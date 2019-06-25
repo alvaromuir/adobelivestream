@@ -15,7 +15,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
     <name>adobelivestream-${project.artifactId}</name>
-    <url>https://oneconfluence.verizon.com/display/ADE/Applied+Data+Engineering+Home</url>
+    <url></url>
 
     <description>
         adobelivestream-vespa is vespa-based real-time data processor built on top of the adobelivestream-collector API,
