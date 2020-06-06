@@ -31,7 +31,7 @@
         <java.version>1.8</java.version>
         <scala.version>2.11.11</scala.version>
         <scala.compat.version>2.11</scala.compat.version>
-        <ignite.version>2.2.0</ignite.version>
+        <ignite.version>2.8.1</ignite.version>
     </properties>
 
     <dependencies>
